@@ -14,14 +14,11 @@ class CreateSurveyScoresTable extends Migration
     {
         Schema::create('survey_scores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('survey_id')->unsigned();
-            $table->foreign('survey_id')->references('id')->on('surveys');
+            $table->integer('surveys_taken_id')->unsigned();
+            $table->foreign('surveys_taken_id')->references('id')->on('surveys_taken');
             $table->integer('trait_id')->unsigned();
             $table->foreign('trait_id')->references('id')->on('traits');
             $table->integer('score');
-            $table->timestamps();
         });
     }
 

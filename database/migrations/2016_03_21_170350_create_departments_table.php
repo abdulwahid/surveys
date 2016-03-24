@@ -18,7 +18,6 @@ class CreateDepartmentsTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('name', 100);
             $table->text('description');
-            $table->timestamps();
         });
     }
 
