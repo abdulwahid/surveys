@@ -15,9 +15,12 @@ class CreateCouponsTable extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('coupon', 100)->unique();
-            $table->integer('company_id')->nullable();
-            $table->integer('department_id')->nullable();
-            $table->integer('role_id')->nullable();
+            $table->integer('company_id')->unsigned()->nullable();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('department_id')->unsigned()->nullable();
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->integer('role_id')->unsigned()->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
         });
     }

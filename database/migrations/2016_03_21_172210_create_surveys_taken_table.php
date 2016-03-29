@@ -20,7 +20,8 @@ class CreateSurveysTakenTable extends Migration
             $table->foreign('coupon_id')->references('id')->on('coupons');
             $table->string('user_name');
             $table->string('user_email');
-            $table->integer('role_id')->nullable();
+            $table->integer('role_id')->unsigned()->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();
         });
     }

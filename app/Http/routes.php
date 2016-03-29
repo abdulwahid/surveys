@@ -29,3 +29,11 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+Route::get('user-info', [
+    'as' => 'user-info', 'uses' => 'SurveyController@userInfo'
+]);
+
+Route::post('user-info', [
+    'as' => 'validate-user-info', 'uses' => 'SurveyController@validateUserInfo'
+]);
