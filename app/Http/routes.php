@@ -30,10 +30,19 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
-Route::get('user-info', [
-    'as' => 'user-info', 'uses' => 'SurveyController@userInfo'
+Route::get('/', [
+    'as' => 'home', 'uses' => 'SurveyController@home'
 ]);
 
-Route::post('user-info', [
-    'as' => 'validate-user-info', 'uses' => 'SurveyController@validateUserInfo'
+Route::post('start-survey', [
+    'as' => 'start-survey', 'uses' => 'SurveyController@startSurvey'
 ]);
+
+Route::post('save-survey-response', [
+    'as' => 'save-survey-response', 'uses' => 'SurveyController@saveSurveyResponse'
+]);
+
+Route::get('thank-you', function () {
+    return view('survey.thank-you');
+});
+

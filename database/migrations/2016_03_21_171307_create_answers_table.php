@@ -16,9 +16,10 @@ class CreateAnswersTable extends Migration
             $table->increments('id');
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions');
-            $table->integer('trait_id')->unsigned();
+            $table->integer('trait_id')->unsigned()->nullable();
             $table->foreign('trait_id')->references('id')->on('traits');
             $table->text('text');
+            $table->mediumInteger('sort_order')->default(1);
             $table->timestamps();
         });
     }

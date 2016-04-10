@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCouponSurveysTable extends Migration
+class CreateQuestionSurveyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateCouponSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupon_surveys', function (Blueprint $table) {
+        Schema::create('question_survey', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('coupon_id')->unsigned();
-            $table->foreign('coupon_id')->references('id')->on('coupons');
             $table->integer('survey_id')->unsigned();
             $table->foreign('survey_id')->references('id')->on('surveys');
+            $table->integer('question_id')->unsigned();
+            $table->foreign('question_id')->references('id')->on('questions');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateCouponSurveysTable extends Migration
      */
     public function down()
     {
-        Schema::drop('coupon_surveys');
+        Schema::drop('question_survey');
     }
 }

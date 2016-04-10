@@ -18,7 +18,7 @@ class CreateSurveyResponsesTable extends Migration
             $table->foreign('surveys_taken_id')->references('id')->on('surveys_taken');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->integer('trait_id')->unsigned();
+            $table->integer('trait_id')->unsigned()->nullable()->default(NULL);
             $table->foreign('trait_id')->references('id')->on('traits');
             $table->integer('question_id')->unsigned();
             $table->foreign('question_id')->references('id')->on('questions');

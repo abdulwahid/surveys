@@ -17,6 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->text('text');
+            $table->mediumInteger('sort_order')->default(1);
             $table->string('type', 100);
             $table->string('calculation_type', 100);
             $table->timestamps();

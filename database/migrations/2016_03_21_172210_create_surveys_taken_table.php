@@ -14,8 +14,6 @@ class CreateSurveysTakenTable extends Migration
     {
         Schema::create('surveys_taken', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('survey_id')->unsigned();
-            $table->foreign('survey_id')->references('id')->on('surveys');
             $table->integer('coupon_id')->unsigned();
             $table->foreign('coupon_id')->references('id')->on('coupons');
             $table->string('user_name');
