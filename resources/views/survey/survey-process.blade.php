@@ -28,6 +28,7 @@
                                     {{ Form::select('role', $roles, null, ['class' => 'role']) }}
                                 </div>
                             @endif
+                            {{ csrf_field() }}
                         </fieldset>
                         <div class="form-group text-center">
                             <button class="btn btn-lg btn-success next">Next</button>

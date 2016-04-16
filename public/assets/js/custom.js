@@ -83,7 +83,8 @@ $(function() {
                 user_name: userName,
                 user_email: userEmail,
                 role: role,
-                responses: responses
+                responses: responses,
+                _token: $('input[name="_token"]').val()
             }
         });
 

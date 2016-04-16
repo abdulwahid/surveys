@@ -8,11 +8,7 @@ class SurveysTaken extends Model
 {
     protected $table = 'surveys_taken';
 
-    public function surveys() {
-        return $this->belongsTo('App\Survey');
-    }
-
-    public function coupons() {
+    public function coupon() {
         return $this->belongsTo('App\Coupon');
     }
 
@@ -22,5 +18,9 @@ class SurveysTaken extends Model
 
     public function surveyScores() {
         return $this->hasMany('App\SurveyScore');
+    }
+
+    public function role() {
+        return $this->belongsTo('App\Role');
     }
 }

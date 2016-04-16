@@ -11,4 +11,8 @@ class Role extends Model
     public function coupons() {
         return $this->hasMany('App\Coupon');
     }
+
+    public function surveysTaken() {
+        return $this->hasMany('App\SurveysTaken');
+    }
 }

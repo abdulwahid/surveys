@@ -36,9 +36,8 @@ class SurveyController extends Controller
 
         $coupon = $request->input('coupon');
 
-        $couponData = Coupon::where('coupon', '=', $coupon)->first();
-
         if($coupon) {
+            $couponData = Coupon::where('coupon', '=', $coupon)->first();
             if($couponData) {
 
                 $surveyData = Coupon::with(['role', 'surveys' => function ($query) {
