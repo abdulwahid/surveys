@@ -88,9 +88,9 @@ $(function() {
             }
         });
 
-        //setTimeout(function(){
-        //    window.location.href = '/thank-you';
-        //}, 250);
+        setTimeout(function(){
+            window.location.href = '/thank-you';
+        }, 250);
 
     });
 
