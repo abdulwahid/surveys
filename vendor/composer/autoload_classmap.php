@@ -532,5 +532,6 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UpdateScoreTableAddCategoryId' => $baseDir . '/database/migrations/2016_04_21_171223_update_score_table_add_category_id.php',
     'UpdateUsersTable' => $baseDir . '/database/migrations/2016_04_14_145750_update_users_table.php',
 );

@@ -11,10 +11,14 @@ class SurveyScore extends Model
     protected $table = 'survey_scores';
 
     public function surveysTaken() {
-        return $this->belongsTo('App\SurveysTaken');
+        return $this->belongsTo('App\SurveysTaken', 'surveys_taken_id');
+    }
+
+    public function category() {
+        return $this->belongsTo('App\Category');
     }
 
     public function traits() {
-        return $this->belongsTo('App\Traits');
+        return $this->belongsTo('App\Traits', 'trait_id');
     }
 }

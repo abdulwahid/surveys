@@ -16,11 +16,12 @@
                         <table class="table table-striped table-bordered table-hover dataTables">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Survey Taken ID</th>
                                 <th>User Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Date / Time</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -31,18 +32,15 @@
                                 <td>{{$row->user_email}}</td>
                                 <td>{{$row->role->name}}</td>
                                 <td>{{$row->created_at}}</td>
+                                <td><a href="{{ route('admin-generate-graph', ['survey_taken_id' => $row->id]) }}"> See Graph</a></td>
                             </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
         </div>
-        <!-- /.col-lg-12 -->
     </div>
 
 @endsection

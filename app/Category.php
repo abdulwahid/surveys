@@ -19,4 +19,8 @@ class Category extends Model
     public function surveyResponses() {
         return $this->hasMany('App\SurveyResponse');
     }
+
+    public function surveyScores() {
+        return $this->hasMany('App\SurveyScore');
+    }
 }
