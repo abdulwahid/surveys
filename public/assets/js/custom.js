@@ -47,29 +47,35 @@ $(function() {
     });
 
     $('.survey-container .finish').on('click', function () {
-        couponId = $('.survey-container').data('coupon-id');
-        userName = $('.user-info .user-name').val();
-        userEmail = $('.user-info .user-email').val();
-        role = $('.user-info .role').val();
-
-        responses = {};
+        var couponId = $('.survey-container').data('coupon-id');
+        var userName = $('.user-info .user-name').val();
+        var userEmail = $('.user-info .user-email').val();
+        var role = $('.user-info .role').val();
+        var responses = {};
         var i = 0;
+
         $('.survey-container').find('.question-container').each(function () {
 
-            questionId = $(this).data('question-id');
-            categoryId = $(this).data('category-id');
-
+            var questionId = $(this).data('question-id');
+            var categoryId = $(this).data('category-id');
+            var traitsCount = $(this).find('.traits-count:first').val();
             var answersCount = $(this).find('.answer').length;
+            var answersPosition = answersCount;
+
             $(this).find('.answer').each(function () {
 
                 var answer = {};
+                var traitId = $(this).data('trait-id');
                 answer['question_id'] = questionId;
                 answer['category_id'] = categoryId;
                 answer['answer_id'] = $(this).data('answer-id');
-                answer['trait_id'] = $(this).data('trait-id');
-                answer['answer_position'] = answersCount;
+                answer['trait_id'] = traitId;
+                answer['answer_position'] = answersPosition;
+                answer['traits_count'] = traitsCount;
+                answer['answers_count'] = answersCount;
+                answer['questions_count'] = $('#traits-' + traitId + '-questions').val();
                 responses[i] = answer;
-                answersCount--;
+                answersPosition--;
                 i++;
             });
 

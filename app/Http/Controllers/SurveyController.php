@@ -87,11 +87,8 @@ class SurveyController extends Controller
         $surveyTaken->save();
 
         $surveyTakenId = $surveyTaken->id;
-
         $data = [];
-//        $questions = [];
 
-        $traitsWithQuestions = [];
         foreach($inputs['responses'] as $answer) {
 
             $response = new SurveyResponse();
@@ -105,55 +102,60 @@ class SurveyController extends Controller
 
             if ($answer['trait_id']) {
 
-                $traitsWithQuestions[$answer['trait_id']][$answer['question_id']] = $answer['question_id'];
-                $traitsWithAnswers[$answer['trait_id']][$answer['answer_id']] = $answer['answer_id'];
-                $questionsWithTraits[$answer['question_id']][$answer['trait_id']] = $answer['trait_id'];
+                if( $answer['answers_count'] != 4 || ($answer['answers_count'] == 4 && $answer['answer_position'] == 4) ) {
 
-                if (!isset($data[$response->trait_id]['positions_sum'])) {
-                    $data[$response->trait_id]['positions_sum'] = 0;
+                    if (!isset($data[$response->trait_id]['positions_sum'])) {
+                        $data[$response->trait_id]['positions_sum'] = 0;
+                    }
+
+                    $data[$response->trait_id]['category_id'] = $answer['category_id'];
+                    $data[$response->trait_id]['traits_count'] = $answer['traits_count'];
+                    $data[$response->trait_id]['answers_count'] = $answer['answers_count'];
+                    $data[$response->trait_id]['questions_count'] = $answer['questions_count'];
+                    $data[$response->trait_id]['positions_sum'] += $answer['answer_position'];
                 }
 
-                $data[$response->trait_id]['category_id'] = $answer['category_id'];
-                $data[$response->trait_id]['positions_sum'] += $answer['answer_position'];
 
             }
 
         }
 
-        $traitCounts = array();
-        foreach($questionsWithTraits as $row) {
-            $traitsInQuestion = count($row);
-            foreach($row as $trait) {
-                $traitCounts[$trait] = $traitsInQuestion;
+        foreach ($data as $trait => $row) {
+
+            $answersCount = $data[$trait]['answers_count'];
+            $questionsCount = $data[$trait]['questions_count'];
+
+            if($answersCount != 4) {
+                $traitsCount = $data[$trait]['traits_count'];
+                $minMarks = $questionsCount;
+                $maxMarks = $questionsCount * $answersCount;
+                $secondMaxMarks = $questionsCount * ($answersCount - 1);
+                $secondMinMarks = $questionsCount * 2;
+
+                $maxPossible = $maxMarks;
+                $minPossible = $minMarks;
+
+                if ($traitsCount < 4) {
+                    $maxPossible = $maxMarks + $secondMaxMarks;
+                    $minPossible = $minMarks + $secondMinMarks;
+                }
+
+                $scaleRange = $maxPossible - $minPossible;
+                $scoreValue = $row['positions_sum'] - $minPossible;
+                $scoreValue = $scoreValue > 0 ? $scoreValue : 0;
+                $scoreValue = $scoreValue < 100 ? $scoreValue : 100;
+                $score = round($scoreValue / $scaleRange * 100);
+
+            } else {
+                $score = round($row['positions_sum'] / ($questionsCount * 4) * 100);
             }
-        }
-
-        foreach ($data as $trait => $data) {
-            $minMarks = $questionsCount = count($traitsWithQuestions[$trait]);
-            $maxMarks = $questionsCount * 5;
-            $secondMaxMarks = $questionsCount * 4;
-            $secondMinMarks = $questionsCount * 2;
-
-            $maxPossible = $maxMarks;
-            $minPossible = $minMarks;
-
-            if($traitCounts[$trait] < 4) {
-                $maxPossible = $maxMarks + $secondMaxMarks;
-                $minPossible = $minMarks + $secondMinMarks;
-            }
-
-            $scaleRange = $maxPossible - $minPossible;
 
             $surveyScore = new SurveyScore();
             $surveyScore->surveys_taken_id = $surveyTakenId;
             $surveyScore->trait_id = $trait;
-            $surveyScore->category_id = $data['category_id'];
-            $scoreValue = $data['positions_sum'] - $minPossible;
-            $scoreValue = $scoreValue > 0 ? $scoreValue : 0;
-            $surveyScore->score = round($scoreValue / $scaleRange * 100);
-            echo 'calculation: '. $data['positions_sum'] . ' - '. $minPossible . ' / ' . $scaleRange . '<br>';
+            $surveyScore->category_id = $row['category_id'];
+            $surveyScore->score = $score;
             $surveyScore->save();
-
         }
     }
 }

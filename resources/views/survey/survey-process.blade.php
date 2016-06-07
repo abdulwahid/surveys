@@ -35,8 +35,14 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                $surveysCount = count($surveyData->surveys);
+                $s = 0;
+                $traitsQuestionsCount = [];
+                ?>
                 @foreach($surveyData->surveys as $survey)
                     <?php
+                    $s++;
                     $questionsCount = count($survey->questions);
                     $q = 0;
                     ?>
@@ -50,16 +56,26 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="answers-container">
-                                        <?php $i = 5; ?>
+                                        <?php
+                                            $i = count($question->answers);
+                                            $traitsCount = [];
+                                        ?>
                                         @foreach($question->answers as $answer)
                                             <div class="answer" data-answer-id="{{ $answer->id }}" data-trait-id="{{ $answer->trait_id }}">
                                                 {{ $answer->text }}
                                             </div>
-                                            <?php $i--; ?>
+                                            <?php
+                                                $i--;
+                                                if($answer->trait_id){
+                                                    $traitsCount[$answer->trait_id] = $answer->trait_id;
+                                                    $traitsQuestionsCount[$answer->trait_id][$question->id] = $question->id;
+                                                }
+                                            ?>
                                         @endforeach
+                                            <input type="hidden" class="traits-count" value="{{  count($traitsCount) }}">
                                     </div>
                                     <div class="form-group text-center">
-                                        @if($questionsCount == $q)
+                                        @if($questionsCount == $q && $surveysCount == $s)
                                             <button class="btn btn-lg btn-danger finish">Finish</button>
                                         @else
                                             <button class="btn btn-lg btn-success next">Next</button>
@@ -69,6 +85,11 @@
                             </div>
                     @endforeach
                 @endforeach
+
+                @foreach($traitsQuestionsCount as $trait_id => $questions)
+                    <input type="hidden" id="traits-{{ $trait_id }}-questions" value="{{ count($questions) }}">
+                @endforeach
+
             </div>
         </div>
     </div>
