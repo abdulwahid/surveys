@@ -35,6 +35,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="login-panel panel panel-default user-info" style="display:none;">
+                    <div class="panel-body">
+                        <iframe width="520" height="315" src="https://www.youtube.com/embed/F9XybBpSqoI" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-lg btn-success next">Next</button>
+                    </div>
+                </div>
+
+                <div class="login-panel panel panel-default user-info" style="display:none;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please provide following information!</h3>
+                    </div>
+                    <div class="panel-body">
+                        Instructions coming soon...
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-lg btn-success next">Next</button>
+                    </div>
+                </div>
                 <?php
                 $surveysCount = count($surveyData->surveys);
                 $s = 0;
