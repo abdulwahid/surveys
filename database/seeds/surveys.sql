@@ -89,7 +89,9 @@ INSERT INTO `traits` (`id`, `category_id`, `name`, `description`) VALUES
 (7, 3, 'trait-7', 'TRAIT7'),
 (8, 4, 'trait-8', 'TRAIT8'),
 (9, 4, 'trait-9', 'TRAIT9'),
-(10, 4, 'trait-10', 'TRAIT10');
+(10, 4, 'trait-10', 'TRAIT10'),
+(11, 4, 'trait-11', 'TRAIT11'),
+(12, 4, 'trait-12', 'TRAIT12');
 
 INSERT INTO `answers` (`id`, `question_id`, `trait_id`, `text`, `sort_order`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'This is answer 1 for Question 1', 1, NULL, NULL),
@@ -146,6 +148,18 @@ INSERT INTO `answers` (`id`, `question_id`, `trait_id`, `text`, `sort_order`, `c
 (52, 11, 9, 'This is answer 2 for Question 11', 1, NULL, NULL),
 (53, 11, 9, 'This is answer 3 for Question 11', 1, NULL, NULL),
 (54, 11, 10, 'This is answer 4 for Question 11', 1, NULL, NULL),
-(55, 11, 10, 'This is answer 5 for Question 11', 1, NULL, NULL);
+(55, 11, 10, 'This is answer 5 for Question 11', 1, NULL, NULL),
+(56, '12', '11', 'This is answer 1 for Question 12', '1', NULL, NULL),
+(57, '12', '11', 'This is answer 2 for Question 12', '1', NULL, NULL),
+(58, '12', '12', 'This is answer 3 for Question 12', '1', NULL, NULL),
+(59, '12', '12', 'This is answer 4 for Question 12', '1', NULL, NULL),
+(60, '13', '11', 'This is answer 1 for Question 13', '1', NULL, NULL),
+(61, '13', '11', 'This is answer 2 for Question 13', '1', NULL, NULL),
+(62, '13', '12', 'This is answer 3 for Question 13', '1', NULL, NULL),
+(63, '13', '12', 'This is answer 4 for Question 13', '1', NULL, NULL),
+(64, '14', '11', 'This is answer 1 for Question 14', '1', NULL, NULL),
+(65, '14', '11', 'This is answer 2 for Question 14', '1', NULL, NULL),
+(66, '14', '12', 'This is answer 3 for Question 14', '1', NULL, NULL),
+(67, '14', '12', 'This is answer 4 for Question 14', '1', NULL, NULL);
 
 

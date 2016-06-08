@@ -49,7 +49,7 @@ class SurveyController extends Controller
             if($allScores->has($traitId)) {
                 $ranges[] = '["' . $allScores[$traitId]->traits->name . '", ' . $allScores[$traitId]->min_score . ',' . $allScores[$traitId]->max_score . ']';
             } else {
-                $ranges[] = '["' . $allScores[$traitId]->traits->name . '", 0,0]';
+                $ranges[] = '["' . $selectedScores[$traitId]->traits->name . '", 0,0]';
             }
         }
 
