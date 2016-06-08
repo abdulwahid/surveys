@@ -46,7 +46,7 @@
 
                 <div class="login-panel panel panel-default user-info" style="display:none;">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please provide following information!</h3>
+                        <h3 class="panel-title">Instructions</h3>
                     </div>
                     <div class="panel-body">
                         Instructions coming soon...
