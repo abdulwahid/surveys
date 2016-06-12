@@ -21,23 +21,22 @@ class SurveyController extends Controller
     {
 
         $selectedScores = SurveyScore::with(['traits'])
-            ->where('surveys_taken_id', '=', $surveyTakenId)->get()->keyBy('trait_id');
+            ->join('categories as c', 'c.id', '=', 'survey_scores.category_id')
+            ->select('survey_scores.*')
+            ->where('survey_scores.surveys_taken_id', '=', $surveyTakenId)
+            ->orderBy('c.sort_order')
+            ->get()
+            ->keyBy('trait_id');
 
         $selectedTraits = $selectedScores->keys()->all();
 
-//        echo '<pre>'; print_r($selectedScores); die;
-
-//        foreach($selectedRawScores as $score) {
-//            $selectedTraits[] = $score->trait->id;
-//            $selectedScores[$score->trait->id] = $score;
-////            $averages[] = [$score->trait->name, $score->score];
-//        }
-
         $allScores = SurveyScore::with(['traits'])
-            ->select('id', 'trait_id', DB::raw('MAX(score) as max_score, MIN(score) as min_score'))
+            ->join('categories as c', 'c.id', '=', 'survey_scores.category_id')
+            ->select('survey_scores.id', 'survey_scores.trait_id', DB::raw('MAX(survey_scores.score) as max_score, MIN(survey_scores.score) as min_score'))
             ->where('surveys_taken_id', '!=', $surveyTakenId)
-            ->whereIn('trait_id', $selectedTraits)
-            ->groupBy('trait_id')
+            ->whereIn('survey_scores.trait_id', $selectedTraits)
+            ->groupBy('survey_scores.trait_id')
+            ->orderBy('c.sort_order')
             ->get()
             ->keyBy('trait_id');
 

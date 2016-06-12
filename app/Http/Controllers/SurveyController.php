@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\Session;
 class SurveyController extends Controller
 {
     /**
-     * Display a form to get information from User.
+     * Display a form to get Coupon from User.
      *
-     * @param  Request  $request
      * @return Response
      */
     public function home()
@@ -27,7 +26,7 @@ class SurveyController extends Controller
     }
 
     /**
-     * Validate Information from user and start survey.
+     * Validate Input Coupon from user and start survey.
      *
      * @param  Request  $request
      * @return Response
@@ -40,7 +39,6 @@ class SurveyController extends Controller
         if($coupon) {
             $couponData = Coupon::where('coupon', '=', $coupon)->first();
             if($couponData) {
-
                 $surveyData = Coupon::with(['role', 'surveys' => function ($query) {
                     $query->with(['questions' => function ($query) {
                         $query->orderBy('sort_order')
@@ -114,19 +112,16 @@ class SurveyController extends Controller
                     $data[$response->trait_id]['questions_count'] = $answer['questions_count'];
                     $data[$response->trait_id]['positions_sum'] += $answer['answer_position'];
                 }
-
-
             }
-
         }
 
-        foreach ($data as $trait => $row) {
+        foreach ($data as $traitId => $row) {
 
-            $answersCount = $data[$trait]['answers_count'];
-            $questionsCount = $data[$trait]['questions_count'];
+            $answersCount = $data[$traitId]['answers_count'];
+            $questionsCount = $data[$traitId]['questions_count'];
 
             if($answersCount != 4) {
-                $traitsCount = $data[$trait]['traits_count'];
+                $traitsCount = $data[$traitId]['traits_count'];
                 $minMarks = $questionsCount;
                 $maxMarks = $questionsCount * $answersCount;
                 $secondMaxMarks = $questionsCount * ($answersCount - 1);
@@ -152,7 +147,7 @@ class SurveyController extends Controller
 
             $surveyScore = new SurveyScore();
             $surveyScore->surveys_taken_id = $surveyTakenId;
-            $surveyScore->trait_id = $trait;
+            $surveyScore->trait_id = $traitId;
             $surveyScore->category_id = $row['category_id'];
             $surveyScore->score = $score;
             $surveyScore->save();
