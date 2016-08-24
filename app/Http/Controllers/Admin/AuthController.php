@@ -31,9 +31,8 @@ class AuthController extends Controller
         $password = $request->input('password');
 
         if (Auth::attempt(['username' => $username, 'password' => $password, 'type' => 'admin'])) {
-
             return redirect()->route('admin-surveys-taken');
-            } else {
+        } else {
             return back();
         }
 

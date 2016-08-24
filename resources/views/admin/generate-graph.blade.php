@@ -1,56 +1,67 @@
 @extends('layouts.admin')
 
 @section('content')
-
-
+    <div id="graphs-container"></div>
+    <script src="{{asset('assets/js/highcharts.js')}}"></script>
+    <script src="{{asset('assets/js/highcharts-more.js')}}"></script>
     <script>
-        <?php echo 'var ranges = ' . $ranges; ?>;
-        <?php echo 'var averages = ' . $averages; ?>;
-        <?php echo 'var traits = ' . json_encode($traits); ?>;
         $(function () {
+        <?php $i = 1; ?>
 
-            $('#graph-container').highcharts({
 
-                title: {
-                    text: 'Survey Graph'
-                },
+        @foreach($graphData as $data)
 
-                xAxis: {
-                    categories: traits
-                },
+                <?php echo 'var ranges = ' . $data['ranges'] . ';';
+                    echo 'var averages = ' . $data['averages'] . ';';
+                    echo 'var traits = ' . json_encode($data['traits']) . ';';
+                ?>
+
+                $('#graphs-container').append($('<div/>', {'class': 'graph-<?php echo $i; ?>'}));
+                $('#graphs-container .graph-<?php echo $i; ?>').highcharts({
 
                 yAxis: {
                     max: 100,
                     min: 0
                 },
 
-                legend: {
-                },
+                    xAxis: {
+                        categories: traits
+                    },
 
-                series: [{
-                    name: "Candidate's Result",
-                    data: averages,
-                    zIndex: 1,
-                    marker: {
-                        fillColor: 'white',
-                        lineWidth: 2,
-                        lineColor: Highcharts.getOptions().colors[0]
-                    }
-                }, {
-                    name: 'Canadian Benchmark',
-                    data: ranges,
-                    type: 'arearange',
-                    lineWidth: 0,
-                    linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[0],
-                    fillOpacity: 0.3,
-                    zIndex: 0
-                }]
-            });
+                    yAxis: {
+                        max: 100,
+                        min: 0
+                    },
+
+                    legend: {
+                    },
+
+                    series: [{
+                        name: "Candidate's Result",
+                        data: averages,
+                        zIndex: 1,
+                        marker: {
+                            fillColor: 'white',
+                            lineWidth: 2,
+                            lineColor: Highcharts.getOptions().colors[0]
+                        }
+                    }, {
+                        name: 'Canadian Benchmark',
+                        data: ranges,
+                        type: 'arearange',
+                        lineWidth: 0,
+                        linkedTo: ':previous',
+                        color: Highcharts.getOptions().colors[0],
+                        fillOpacity: 0.3,
+                        zIndex: 0
+                    }]
+                });
+
+
+            <?php $i++; ?>
+        @endforeach
         });
-
     </script>
-    <script src="{{asset('assets/js/highcharts.js')}}"></script>
-    <script src="{{asset('assets/js/highcharts-more.js')}}"></script>
-    <div id="graph-container"></div>
+
+
 @endsection

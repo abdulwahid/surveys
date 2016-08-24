@@ -42,6 +42,8 @@ class SurveyController extends Controller
 
         $ranges = [];
         $averages = [];
+        $traits = [];
+
         foreach($selectedTraits as $traitId) {
             $traits[] = $selectedScores[$traitId]->traits->name;
             $averages[] = '["' . $selectedScores[$traitId]->traits->name . '",' . $selectedScores[$traitId]->score . ']';
@@ -52,10 +54,21 @@ class SurveyController extends Controller
             }
         }
 
-        $ranges = '[' . implode(',', $ranges) . ']';
-        $averages = '[' . implode(',', $averages) . ']';
+        $ranges = array_chunk($ranges, 15);
+        $averages = array_chunk($averages, 15);
+        $traits = array_chunk($traits, 15);
 
-        return view('admin.generate-graph', ['traits' => $traits, 'ranges' => $ranges, 'averages' => $averages]);
+        $i = 0;
+        $graphData = [];
+        foreach($ranges as $range) {
+            $graphData[$i]['traits'] = $traits[$i];
+            $graphData[$i]['ranges'] = '[' . implode(',', $ranges[$i]) . ']';
+            $graphData[$i]['averages'] = '[' . implode(',', $averages[$i]) . ']';
+            $i++;
+        }
+
+//        return view('admin.generate-graph', ['traits' => $traits, 'ranges' => $ranges, 'averages' => $averages]);
+        return view('admin.generate-graph', ['graphData' => $graphData]);
     }
 
 }

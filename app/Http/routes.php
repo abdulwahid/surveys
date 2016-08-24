@@ -59,9 +59,9 @@ Route::group(['middleware' => ['web']], function () {
     });
     //
 
-    Route::get('/', [
-        'as' => 'home', 'uses' => 'SurveyController@home'
-    ]);
+    Route::get('/', function(){
+        return view('survey.home');
+    });
 
     Route::post('start-survey', [
         'as' => 'start-survey', 'uses' => 'SurveyController@startSurvey'
