@@ -64,7 +64,7 @@
                         <p><b>There is no right or wrong, there is just your preferred order.</b></p>
                         <p><b>If you get stuck, go with your first instinct. It is likely the right one for you.</b></p>
                         <br>
-                        <p><br>NOTE:</br> If the order you see is already as you would want it, then pressing next a second time will move you to the next statement.</p>
+                        <p><b>NOTE:</b> If the order you see is already as you would want it, then pressing next a second time will move you to the next statement.</p>
                     </div>
                     <div class="form-group text-center">
                         <button class="btn btn-lg btn-success next">Next</button>
