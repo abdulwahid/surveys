@@ -1,6 +1,19 @@
 $(function() {
 
+    if('ontouchstart' in window || 'onmsgesturechange' in window) {
+        $('#pc-utube-vdo').hide();
+        $('#tablet-utube-vdo').show();
+    } else {
+        $('#tablet-utube-vdo').hide();
+        $('#pc-utube-vdo').show();
+    }
+
+    changed = false;
+
     $('.answers-container').sortable({
+        change: function( event, ui ) {
+            changed = true;
+        },
         stop: function( event, ui ) {
             var container = ui.item.closest('.answers-container');
             var answers = container.find('.answers');
@@ -32,6 +45,14 @@ $(function() {
                 $('.user-info .error-message').html('').hide();
             }
         }
+
+        if($(this).parents('.panel:first').hasClass('question-container') && !changed) {
+            $('#confirm-next').modal('show');
+            changed = true;
+            next = false;
+        }
+
+
         if (next) {
             var parent = $(this).closest('.panel');
             if (parent.find('.answers-container').length) {
@@ -41,6 +62,7 @@ $(function() {
 
             parent.hide('slide', {direction: 'left'}, function () {
                 next.show("slide", {direction: "right"});
+                changed = false;
             });
         }
 
