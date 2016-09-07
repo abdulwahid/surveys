@@ -69,6 +69,13 @@ $(function() {
     });
 
     $('.survey-container .finish').on('click', function () {
+
+        if($(this).parents('.panel:first').hasClass('question-container') && !changed) {
+            $('#confirm-next').modal('show');
+            changed = true;
+            return;
+        }
+
         var couponId = $('.survey-container').data('coupon-id');
         var userName = $('.user-info .user-name').val();
         var userEmail = $('.user-info .user-email').val();
@@ -117,7 +124,7 @@ $(function() {
         });
 
         setTimeout(function(){
-            //window.location.href = '/thank-you';
+            window.location.href = '/thank-you';
         }, 250);
 
     });

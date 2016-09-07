@@ -366,3 +366,7 @@ table.dataTable thead .sorting:after {
     margin: 10px;
     background-color: #f5f5f5;
 }
+
+.ui-sortable-handle{
+    cursor: pointer;
+}
