@@ -30,7 +30,8 @@
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/js/dataTables.bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/custom.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.ui.touch-punch.min.js')}}"></script>
+    <script src="{{asset('assets/js/admin.js')}}"></script>
 
 
 </head>
@@ -66,7 +67,7 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href=""><i class="fa fa-list-ul"></i> Surveys Taken</a>
+                        <a href="{{ route('admin-surveys-taken') }}"><i class="fa fa-list-ul"></i> Surveys Taken</a>
                     </li>
                 </ul>
             </div>

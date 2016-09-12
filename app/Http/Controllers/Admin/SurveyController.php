@@ -12,7 +12,6 @@ class SurveyController extends Controller
 
     public function surveysTaken()
     {
-
         $surveysTaken = SurveysTaken::with(['role'])->get();
         return view('admin.surveys-taken', ['surveysTaken'=> $surveysTaken]);
     }
@@ -67,8 +66,12 @@ class SurveyController extends Controller
             $i++;
         }
 
-//        return view('admin.generate-graph', ['traits' => $traits, 'ranges' => $ranges, 'averages' => $averages]);
         return view('admin.generate-graph', ['graphData' => $graphData]);
     }
 
+    public function downloadReport($surveyTakenId) {
+        $headers = ['Content-Type' => 'application/pdf'];
+        $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
+        return response()->download($pdfFile, 'Report-'.time().'.pdf', $headers);
+    }
 }

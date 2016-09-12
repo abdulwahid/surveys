@@ -13,7 +13,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover dataTables">
+                        <table id="surveys-taken-table" class="table table-striped table-bordered table-hover dataTables">
                             <thead>
                             <tr>
                                 <th>Survey Taken ID</th>
@@ -32,7 +32,10 @@
                                 <td>{{$row->user_email}}</td>
                                 <td>{{$row->role->name}}</td>
                                 <td>{{$row->created_at}}</td>
-                                <td><a href="{{ route('admin-generate-graph', ['survey_taken_id' => $row->id]) }}"> See Graph</a></td>
+                                <td>
+                                    <div><a href="{{ route('admin-generate-graph', ['survey_taken_id' => $row->id]) }}">See Graph</a></div>
+                                    <div><a href="{{ route('admin-download-report', ['survey_taken_id' => $row->id]) }}">Download Report</a></div>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>

@@ -107,11 +107,9 @@ class SurveyController extends Controller
                 }
             }
         }
+
         $categoryTraitTree = [];
-
-
         foreach ($data as $traitId => $row) {
-
             $answersCount = $data[$traitId]['answers_count'];
             $questionsCount = $data[$traitId]['questions_count'];
 
@@ -147,31 +145,29 @@ class SurveyController extends Controller
             $surveyScore->score = $score;
             $surveyScore->save();
 
+            // following Code line used to send PDF in EMail
             $categoryTraitTree[$row['category_id']][$traitId] = $score;
         }
 
 
+
         $categories = array_keys($categoryTraitTree);
         $categoriesData = Category::select(['id', 'name', 'description'])->whereIn('id', $categories)->get()->keyBy('id');
-
         $traits = array_keys($data);
         $traitsData = Traits::select(['id', 'name', 'description'])->whereIn('id', $traits)->get()->keyBy('id');
-
-        $html = view('pdf', ['scores' => $categoryTraitTree, 'categories' => $categoriesData,
-            'traits' => $traitsData, 'bar_chart' => public_path().'/assets/images/bar-chart.png',
-            'area_chart' => public_path().'/assets/images/area-chart.png'
-        ]);
-
-        $pdfFile = public_path().'/pdf_files/'.time().str_random(5).'.pdf';
+        $html = view('pdf', ['scores' => $categoryTraitTree, 'categories' => $categoriesData, 'traits' => $traitsData]);
+        $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
         fopen($pdfFile, 'w');
         \PDF::loadHTML($html)->save($pdfFile);
 
-
+        /*
+        // Code to send PDF in EMail
         Mail::send('emails.survey-report', ['name' => $inputs['user_name']], function ($m) use ($pdfFile, $inputs) {
             $m->from('surveys@languageofintention.com', 'Surveys');
             $m->to($inputs['user_email'], 'Wahid')->subject('Survey Report!');
             $m->attach($pdfFile);
         });
+        */
 
     }
 }

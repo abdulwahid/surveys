@@ -48,6 +48,10 @@ Route::group(['middleware' => ['web']], function () {
                 'as' => 'admin-surveys-taken', 'uses' => 'SurveyController@surveysTaken'
             ]);
 
+            Route::get('download-report/{survey_taken_id}', [
+                'as' => 'admin-download-report', 'uses' => 'SurveyController@downloadReport'
+            ]);
+
             Route::get('generate-graph/{survey_taken_id}', [
                 'as' => 'admin-generate-graph', 'uses' => 'SurveyController@generateGraph'
             ]);

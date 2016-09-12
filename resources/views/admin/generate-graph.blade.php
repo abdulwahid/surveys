@@ -4,6 +4,7 @@
     <div id="graphs-container"></div>
     <script src="{{asset('assets/js/highcharts.js')}}"></script>
     <script src="{{asset('assets/js/highcharts-more.js')}}"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script>
         $(function () {
         <?php $i = 1; ?>
@@ -19,11 +20,6 @@
                 $('#graphs-container').append($('<div/>', {'class': 'graph-<?php echo $i; ?>'}));
                 $('#graphs-container .graph-<?php echo $i; ?>').highcharts({
 
-                yAxis: {
-                    max: 100,
-                    min: 0
-                },
-
                     xAxis: {
                         categories: traits
                     },
@@ -31,6 +27,10 @@
                     yAxis: {
                         max: 100,
                         min: 0
+                    },
+
+                    title: {
+                        text: false
                     },
 
                     legend: {

@@ -1,5 +1,6 @@
 $(function() {
 
+    // Check device to show Youtube video in Survey process
     if('ontouchstart' in window || 'onmsgesturechange' in window) {
         $('#pc-utube-vdo').hide();
         $('#tablet-utube-vdo').show();
@@ -8,8 +9,10 @@ $(function() {
         $('#pc-utube-vdo').show();
     }
 
+    // This variable is used to hold change status of options in survey questions
     changed = false;
 
+    // Make answers sortable
     $('.answers-container').sortable({
         change: function( event, ui ) {
             changed = true;
@@ -21,6 +24,7 @@ $(function() {
     });
     $('.answers-container').disableSelection();
 
+    // Handle Click Next Button in survey process
     $('.survey-container .next').on('click', function () {
 
         var next = true;
@@ -68,6 +72,7 @@ $(function() {
 
     });
 
+    // Handle Finish button in Survey Process
     $('.survey-container .finish').on('click', function () {
 
         if($(this).parents('.panel:first').hasClass('question-container') && !changed) {

@@ -1,8 +1,5 @@
 <div style="font-family: Arial, Helvetica, sans-serif">
-    <div>
-        <img width="500" src="{{ $area_chart }}" />
-        <br><br><br>
-    </div>
+
 @foreach($scores as $categoryId => $traitsList)
 
     <div>
@@ -26,9 +23,7 @@
             <br>
         @endforeach
         </div>
-        <div style="width:48%; float: left;">
-            <img height="200" src="{{ $bar_chart }}" />
-        </div>
+
         <br><br><br>
     </div>
 
