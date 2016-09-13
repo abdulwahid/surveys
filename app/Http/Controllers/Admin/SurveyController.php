@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
+use App\SurveyResponse;
 use App\SurveyScore ;
 use App\SurveysTaken;
 use App\Http\Controllers\Controller;
+use App\Traits;
 use DB;
+use Illuminate\Support\Facades\File;
 
 class SurveyController extends Controller
 {
@@ -70,8 +74,28 @@ class SurveyController extends Controller
     }
 
     public function downloadReport($surveyTakenId) {
-        $headers = ['Content-Type' => 'application/pdf'];
         $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
-        return response()->download($pdfFile, 'Report-'.time().'.pdf', $headers);
+
+        // Create PDF Report if not exists
+        if(!File::exists($pdfFile)) {
+            $surveyData = SurveyResponse::where('surveys_taken_id', $surveyTakenId)->get();
+            $categories = $surveyData->pluck('category_id');
+            $traits = $surveyData->pluck('trait_id');
+
+            $scores = [];
+            $surveyScores = SurveyScore::where('surveys_taken_id', $surveyTakenId)->get();
+            foreach($surveyScores as $surveyScore) {
+                $scores[$surveyScore->category_id][$surveyScore->trait_id] = $surveyScore->score;
+            }
+
+            $categoriesData = Category::select(['id', 'name', 'description'])->whereIn('id', $categories)->get()->keyBy('id');
+            $traitsData = Traits::select(['id', 'name', 'description'])->whereIn('id', $traits)->get()->keyBy('id');
+            $html = view('pdf', ['scores' => $scores, 'categories' => $categoriesData, 'traits' => $traitsData]);
+            fopen($pdfFile, 'w');
+            \PDF::loadHTML($html)->save($pdfFile);
+        }
+
+        $headers = ['Content-Type' => 'application/pdf'];
+        return response()->download($pdfFile, 'Report-' . $surveyTakenId . '.pdf', $headers);
     }
 }

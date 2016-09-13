@@ -108,7 +108,7 @@ class SurveyController extends Controller
             }
         }
 
-        $categoryTraitTree = [];
+        $scores = [];
         foreach ($data as $traitId => $row) {
             $answersCount = $data[$traitId]['answers_count'];
             $questionsCount = $data[$traitId]['questions_count'];
@@ -146,16 +146,14 @@ class SurveyController extends Controller
             $surveyScore->save();
 
             // following Code line used to send PDF in EMail
-            $categoryTraitTree[$row['category_id']][$traitId] = $score;
+            $scores[$row['category_id']][$traitId] = $score;
         }
 
-
-
-        $categories = array_keys($categoryTraitTree);
+        $categories = array_keys($scores);
         $categoriesData = Category::select(['id', 'name', 'description'])->whereIn('id', $categories)->get()->keyBy('id');
         $traits = array_keys($data);
         $traitsData = Traits::select(['id', 'name', 'description'])->whereIn('id', $traits)->get()->keyBy('id');
-        $html = view('pdf', ['scores' => $categoryTraitTree, 'categories' => $categoriesData, 'traits' => $traitsData]);
+        $html = view('pdf', ['scores' => $scores, 'categories' => $categoriesData, 'traits' => $traitsData]);
         $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
         fopen($pdfFile, 'w');
         \PDF::loadHTML($html)->save($pdfFile);
