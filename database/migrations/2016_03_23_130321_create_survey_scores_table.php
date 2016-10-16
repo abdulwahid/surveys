@@ -15,9 +15,9 @@ class CreateSurveyScoresTable extends Migration
         Schema::create('survey_scores', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('surveys_taken_id')->unsigned();
-            $table->foreign('surveys_taken_id')->references('id')->on('surveys_taken');
+            $table->foreign('surveys_taken_id')->references('id')->on('surveys_taken')->onDelete('cascade');
             $table->integer('trait_id')->unsigned();
-            $table->foreign('trait_id')->references('id')->on('traits');
+            $table->foreign('trait_id')->references('id')->on('traits')->onDelete('cascade');
             $table->integer('score');
         });
     }

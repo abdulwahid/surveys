@@ -15,9 +15,9 @@ class CreateCouponSurveyTable extends Migration
         Schema::create('coupon_survey', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('coupon_id')->unsigned();
-            $table->foreign('coupon_id')->references('id')->on('coupons');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
             $table->integer('survey_id')->unsigned();
-            $table->foreign('survey_id')->references('id')->on('surveys');
+            $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('cascade');
         });
     }
 

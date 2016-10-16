@@ -16,11 +16,11 @@ class CreateCouponsTable extends Migration
             $table->increments('id');
             $table->string('coupon', 100)->unique();
             $table->integer('company_id')->unsigned()->nullable();
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->integer('department_id')->unsigned()->nullable();
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->integer('role_id')->unsigned()->nullable();
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });
     }

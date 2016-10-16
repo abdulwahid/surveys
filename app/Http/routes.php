@@ -59,6 +59,132 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('logout', [
                 'as' => 'admin-logout', 'uses' => 'AuthController@logout'
             ]);
+
+            Route::get('categories/list', [
+                'as' => 'admin-categories-list', 'uses' => 'CategoryController@showList'
+            ]);
+
+            Route::get('categories/create', [
+                'as' => 'admin-categories-create', 'uses' => 'CategoryController@create'
+            ]);
+
+            Route::get('categories/update/{id}', [
+                'as' => 'admin-categories-update', 'uses' => 'CategoryController@update'
+            ]);
+
+            Route::post('categories/update/{id?}', [
+                'as' => 'admin-categories-post-update', 'uses' => 'CategoryController@postUpdate'
+            ]);
+
+            Route::get('categories/delete/{id}', [
+                'as' => 'admin-categories-delete', 'uses' => 'CategoryController@delete'
+            ]);
+
+            Route::get('companies/list', [
+                'as' => 'admin-companies-list', 'uses' => 'CompanyController@showList'
+            ]);
+
+            Route::get('companies/create', [
+                'as' => 'admin-companies-create', 'uses' => 'CompanyController@create'
+            ]);
+
+            Route::get('companies/update/{id}', [
+                'as' => 'admin-companies-update', 'uses' => 'CompanyController@update'
+            ]);
+
+            Route::post('companies/update/{id?}', [
+                'as' => 'admin-companies-post-update', 'uses' => 'CompanyController@postUpdate'
+            ]);
+
+            Route::get('companies/delete/{id}', [
+                'as' => 'admin-companies-delete', 'uses' => 'CompanyController@delete'
+            ]);
+
+            Route::get('departments/list', [
+                'as' => 'admin-departments-list', 'uses' => 'DepartmentController@showList'
+            ]);
+
+            Route::get('departments/create', [
+                'as' => 'admin-departments-create', 'uses' => 'DepartmentController@create'
+            ]);
+
+            Route::get('departments/update/{id}', [
+                'as' => 'admin-departments-update', 'uses' => 'DepartmentController@update'
+            ]);
+
+            Route::post('departments/update/{id?}', [
+                'as' => 'admin-departments-post-update', 'uses' => 'DepartmentController@postUpdate'
+            ]);
+
+            Route::get('departments/delete/{id}', [
+                'as' => 'admin-departments-delete', 'uses' => 'DepartmentController@delete'
+            ]);
+
+            Route::get('roles/list', [
+                'as' => 'admin-roles-list', 'uses' => 'RoleController@showList'
+            ]);
+
+            Route::get('roles/create', [
+                'as' => 'admin-roles-create', 'uses' => 'RoleController@create'
+            ]);
+
+            Route::get('roles/update/{id}', [
+                'as' => 'admin-roles-update', 'uses' => 'RoleController@update'
+            ]);
+
+            Route::post('roles/update/{id?}', [
+                'as' => 'admin-roles-post-update', 'uses' => 'RoleController@postUpdate'
+            ]);
+
+            Route::get('roles/delete/{id}', [
+                'as' => 'admin-roles-delete', 'uses' => 'RoleController@delete'
+            ]);
+
+            Route::get('traits/list', [
+                'as' => 'admin-traits-list', 'uses' => 'TraitController@showList'
+            ]);
+
+            Route::get('traits/create', [
+                'as' => 'admin-traits-create', 'uses' => 'TraitController@create'
+            ]);
+
+            Route::get('traits/update/{id}', [
+                'as' => 'admin-traits-update', 'uses' => 'TraitController@update'
+            ]);
+
+            Route::post('traits/update/{id?}', [
+                'as' => 'admin-traits-post-update', 'uses' => 'TraitController@postUpdate'
+            ]);
+
+            Route::get('traits/delete/{id}', [
+                'as' => 'admin-traits-delete', 'uses' => 'TraitController@delete'
+            ]);
+
+            Route::get('questions/list', [
+                'as' => 'admin-questions-list', 'uses' => 'QuestionController@showList'
+            ]);
+
+            Route::get('questions/create', [
+                'as' => 'admin-questions-create', 'uses' => 'QuestionController@create'
+            ]);
+
+            Route::get('questions/update/{id}', [
+                'as' => 'admin-questions-update', 'uses' => 'QuestionController@update'
+            ]);
+
+            Route::post('questions/update/{id?}', [
+                'as' => 'admin-questions-post-update', 'uses' => 'QuestionController@postUpdate'
+            ]);
+
+            Route::get('questions/delete/{id}', [
+                'as' => 'admin-questions-delete', 'uses' => 'QuestionController@delete'
+            ]);
+
+            Route::get('answers/list/{traitId?}', [
+                'as' => 'admin-answers-list', 'uses' => 'AnswerController@showList'
+            ]);
+
+
         });
     });
     //
@@ -84,5 +210,10 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::get('/home', 'HomeController@index');
+
+    Route::get('get-cities/{country_id}', function ($countryId) {
+        $cities = \App\City::where('country_id', $countryId)->get();
+        return response()->json($cities);
+    });
 
 });

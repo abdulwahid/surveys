@@ -17,9 +17,9 @@ class CreateCompaniesTable extends Migration
             $table->string('name', 100);
             $table->text('description');
             $table->integer('country_id')->unsigned();
-            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
     }
 

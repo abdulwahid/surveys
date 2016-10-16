@@ -27,34 +27,37 @@ class SurveyController extends Controller
      */
     public function startSurvey(Request $request)
     {
-        $coupon = $request->input('coupon');
+        $coupon = $request->input('coupon', null);
         if($coupon) {
             $couponData = Coupon::where('coupon', '=', $coupon)->first();
-            if($couponData) {
-                $surveyData = Coupon::with(['role', 'surveys' => function ($query) {
-                    $query->with(['questions' => function ($query) {
-                        $query->orderBy('sort_order')
-                            ->with(['category', 'answers' => function ($query) {
-                                $query->orderBy('sort_order')
-                                    ->with(['traits']);
+
+            $couponData = Coupon::with(['role', 'surveys' => function ($query) {
+                $query->with(['questions' => function ($query) {
+                    $query->orderBy('sort_order')
+                        ->with(['category', 'answers' => function ($query) {
+                            $query->orderBy('sort_order')
+                                ->with(['traits']);
                         }]);
-                    }]);
-                }])
-                ->where('coupon', '=', $coupon)
-                ->first();
-
-                $roles = [];
-                if(!$surveyData->role) {
-                    $roles = Role::all()->pluck('name', 'id');
+                }]);
+            }])
+            ->where('coupon', '=', $coupon)
+            ->first();
+    
+            if($couponData) {
+                $surveyData = $couponData->surveys;
+                if($couponData->surveys) {
+                    $roles = [];
+                    if(!$surveyData->role) {
+                        $roles = Role::all()->pluck('name', 'id');
+                    }
+                    return view('survey.survey-process')->with(['surveyData' => $couponData->surveys, 'roles' => $roles]);
+                } else {
+                    return redirect('/')->withInput()->with('error_message', 'No survey found for provided coupon.');
                 }
-                return view('survey.survey-process')->with(['surveyData' => $surveyData, 'roles' => $roles]);
-
             } else {
-                Session::flash('error_message', 'Invalid Coupon. No survey found for provided coupon.');
-                return redirect('/')->withInput()->with('error_message', 'Invalid Coupon. No survey found for provided coupon.');
+                return redirect('/')->withInput()->with('error_message', 'Invalid Coupon.');
             }
         } else {
-            Session::flash('error_message', 'Coupon is required.');
             return redirect('/')->withInput()->with('error_message', 'Coupon is required.');
         }
     }

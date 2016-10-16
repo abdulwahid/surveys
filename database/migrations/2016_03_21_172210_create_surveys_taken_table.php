@@ -15,11 +15,11 @@ class CreateSurveysTakenTable extends Migration
         Schema::create('surveys_taken', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('coupon_id')->unsigned();
-            $table->foreign('coupon_id')->references('id')->on('coupons');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
             $table->string('user_name');
             $table->string('user_email');
             $table->integer('role_id')->unsigned()->nullable();
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });
     }

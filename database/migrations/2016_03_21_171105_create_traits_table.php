@@ -15,7 +15,7 @@ class CreateTraitsTable extends Migration
         Schema::create('traits', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('name', 100);
             $table->text('description');
         });

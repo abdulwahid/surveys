@@ -15,6 +15,10 @@ class Traits extends Model
      */
     protected $table = 'traits';
 
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
+
     public function answers() {
         return $this->hasMany('App\Answer', 'trait_id');
     }

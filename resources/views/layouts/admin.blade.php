@@ -14,6 +14,7 @@
 
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/jquery-ui.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/metisMenu.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
@@ -28,6 +29,7 @@
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/metisMenu.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/js/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.ui.touch-punch.min.js')}}"></script>
@@ -48,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Surveys Admin Panel</a>
+            <a class="navbar-brand" href="{{ route('admin-surveys-taken') }}">Surveys Admin Panel</a>
         </div>
 
         <ul class="nav navbar-top-links navbar-right">
@@ -69,12 +71,57 @@
                     <li>
                         <a href="{{ route('admin-surveys-taken') }}"><i class="fa fa-list-ul"></i> Surveys Taken</a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin-categories-list') }}"><i class="fa fa-list-ul"></i> Categories</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-categories-create') }}"><i class="fa fa-edit"></i> Create New Category</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-companies-list') }}"><i class="fa fa-list-ul"></i> Companies</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-companies-create') }}"><i class="fa fa-edit"></i> Create New Company</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-departments-list') }}"><i class="fa fa-list-ul"></i> Departments</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-departments-create') }}"><i class="fa fa-edit"></i> Create New Department</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-roles-list') }}"><i class="fa fa-list-ul"></i> Roles</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-roles-create') }}"><i class="fa fa-edit"></i> Create New Role</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-traits-list') }}"><i class="fa fa-list-ul"></i> Traits</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-traits-create') }}"><i class="fa fa-edit"></i> Create New Trait</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-questions-list') }}"><i class="fa fa-list-ul"></i> Question</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-questions-create') }}"><i class="fa fa-edit"></i> Create New Question</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
     <div id="page-wrapper">
+        @if (session('message'))
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <ul>
+                    {{ session('message') }}
+                </ul>
+            </div>
+        @endif
         @yield('content')
     </div>
 </div>
