@@ -31,4 +31,36 @@ class AnswerController extends Controller
 
         return view('admin.answer.show-list', compact('answers', 'trait'));
     }
+
+    public function postUpdate(Request $request, $id=null)
+    {
+//        dd($request->all());
+        $this->validate($request, [
+            'answer_text' => 'required',
+            'answer_trait' => 'exists:traits,id',
+            'answer_question' => 'required|exists:questions,id'
+        ]);
+
+        if($id) {
+            $answer = Answer::findOrFail($id);
+            $actionType = 'updated';
+        } else {
+            $answer = New Answer;
+            $actionType = 'created';
+        }
+
+        $answer->text = $request->get('answer_text');
+        $answer->sort_order = $request->has('answer_sort_order') ? $request->get('answer_sort_order') : '1';
+        $answer->trait_id = $request->has('answer_trait') ? $request->get('answer_trait') : NULL;
+        $answer->question_id = $request->get('answer_question');
+        $answer->save();
+
+        return redirect()->back()->with(['message' => 'Answer ' . $actionType . ' successfully']);
+    }
+
+    public function delete($id) {
+        $answer = Answer::findOrFail($id);
+        $answer->delete();
+        return redirect()->back()->with(['message' => 'Answer deleted successfully']);
+    }
 }

@@ -17,6 +17,18 @@
                     <div class="col-lg-6">
                         <form role="form" action="{{ route('admin-categories-post-update') }}" method="post">
 
+                            <div class="form-group {{ ($errors && $errors->has('survey_type')) ? 'has-error' : '' }}">
+                                <label>Country</label>
+                                <select name="survey_type" class="country form-control">
+                                    <option value="">Select Survey Type</option>
+                                    @foreach($surveyTypes as $surveyType)
+                                        <option value="{{ $surveyType->id }}" {{ (old('survey_type') && old('survey_type') == $surveyType->id) ? 'selected' : ''}}>{{ $surveyType->name }}</option>
+                                    @endforeach
+                                </select>
+                                {!! ($errors && $errors->has('survey_type')) ? '<p class="help-block">'. $errors->first('survey_type') .'</p>' : '' !!}
+                            </div>
+
+
                             <div class="form-group {{ ($errors && $errors->has('name')) ? 'has-error' : '' }}">
                                 <label>Name</label>
                                 <input name="name" class="form-control" value="{{ (old('name')) ? old('name') : '' }}">

@@ -20,6 +20,7 @@
                                         <option value="{{ $category->id }}" {{ (old('category') && old('category') == $category->id) ? 'selected' : ''}}>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
+                                {!! ($errors && $errors->has('category')) ? '<p class="help-block">'. $errors->first('category') .'</p>' : '' !!}
                             </div>
                             <div class="form-group {{ ($errors && $errors->has('text')) ? 'has-error' : '' }}">
                                 <label>Text</label>

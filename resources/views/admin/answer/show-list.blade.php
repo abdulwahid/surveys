@@ -17,7 +17,7 @@
                                 <th>Trait</th>
                                 <th>Question</th>
                                 <th>Sort Order</th>
-                                <th></th>
+                                {{--<th></th>--}}
                             </tr>
                             </thead>
                             <tbody>
@@ -27,10 +27,10 @@
                                 <td>{{ ($row->traits) ? $row->traits->name : '' }}</td>
                                 <td title="{{ $row->question->text }}">{{ str_limit($row->question->text) }}</td>
                                 <td>{{$row->sort_order}}</td>
-                                <td>
+                                {{--<td>--}}
                                     {{--<a href="{{ route('admin-answers-update', $row->id) }}"><span class="glyphicon glyphicon-pencil"></span></a>--}}
                                     {{--<a onclick="confirm('Are you sure you want to delete?');" href="{{ route('admin-answers-delete', $row->id) }}"><span class="glyphicon glyphicon-trash"></span></a>--}}
-                                </td>
+                                {{--</td>--}}
                             </tr>
                             @endforeach
                             </tbody>

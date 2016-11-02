@@ -19,4 +19,8 @@ class Company extends Model
     public function departments() {
         return $this->hasMany('App\Department');
     }
+
+    public function coupons() {
+        return $this->hasMany('App\Coupon');
+    }
 }

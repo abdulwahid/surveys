@@ -2,7 +2,12 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Traits</h1>
+            <div class="col-lg-6">
+                <h1 class="page-header">Traits</h1>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-primary pull-right page-header" role="button" href="{{ route('admin-traits-create') }}">Add New Trait</a>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -27,7 +32,9 @@
                                 <td>{{$row->category->name}}</td>
                                 <td>
                                     <a href="{{ route('admin-traits-update', $row->id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    &nbsp;|&nbsp;
                                     <a onclick="confirm('Are you sure you want to delete?');" href="{{ route('admin-traits-delete', $row->id) }}"><span class="glyphicon glyphicon-trash"></span></a>
+                                    &nbsp;|&nbsp;
                                     <a href="{{ route('admin-answers-list', $row->id) }}">See Answers</a>
                                 </td>
                             </tr>

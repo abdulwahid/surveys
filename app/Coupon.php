@@ -11,11 +11,15 @@ class Coupon extends Model
     }
 
     public function role() {
-        return $this->belongsTo('App\Role');
+        return $this->belongsTo('App\Role', 'role_id', 'id');
+    }
+
+    public function company() {
+        return $this->belongsTo('App\Company', 'company_id', 'id');
     }
 
     public function department() {
-        return $this->belongsTo('App\Department');
+        return $this->belongsTo('App\Department', 'department_id', 'id');
     }
 
     public function surveysTaken() {

@@ -30,12 +30,14 @@
                                         <option value="{{ $country->id }}" {{ (old('country') && old('country') == $country->id) ? 'selected' : ''}}>{{ $country->name }}</option>
                                     @endforeach
                                 </select>
+                                {!! ($errors && $errors->has('country')) ? '<p class="help-block">'. $errors->first('country') .'</p>' : '' !!}
                             </div>
                             <div class="form-group {{ ($errors && $errors->has('city')) ? 'has-error' : '' }}">
                                 <label>City</label>
                                 <select name="city" class="city form-control">
                                     <option value="">Select City</option>
                                 </select>
+                                {!! ($errors && $errors->has('city')) ? '<p class="help-block">'. $errors->first('city') .'</p>' : '' !!}
                             </div>
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-primary">Create</button>

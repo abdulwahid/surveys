@@ -60,6 +60,66 @@ Route::group(['middleware' => ['web']], function () {
                 'as' => 'admin-logout', 'uses' => 'AuthController@logout'
             ]);
 
+            Route::get('survey-types/list', [
+                'as' => 'admin-survey-types-list', 'uses' => 'SurveyTypeController@showList'
+            ]);
+
+            Route::get('survey-types/create', [
+                'as' => 'admin-survey-types-create', 'uses' => 'SurveyTypeController@create'
+            ]);
+
+            Route::get('survey-types/update/{id}', [
+                'as' => 'admin-survey-types-update', 'uses' => 'SurveyTypeController@update'
+            ]);
+
+            Route::post('survey-types/update/{id?}', [
+                'as' => 'admin-survey-types-post-update', 'uses' => 'SurveyTypeController@postUpdate'
+            ]);
+
+            Route::get('survey-types/delete/{id}', [
+                'as' => 'admin-survey-types-delete', 'uses' => 'SurveyTypeController@delete'
+            ]);
+
+            Route::get('surveys/list', [
+                'as' => 'admin-surveys-list', 'uses' => 'SurveyController@showList'
+            ]);
+
+            Route::get('surveys/create', [
+                'as' => 'admin-surveys-create', 'uses' => 'SurveyController@create'
+            ]);
+
+            Route::get('surveys/update/{id}', [
+                'as' => 'admin-surveys-update', 'uses' => 'SurveyController@update'
+            ]);
+
+            Route::post('surveys/update/{id?}', [
+                'as' => 'admin-surveys-post-update', 'uses' => 'SurveyController@postUpdate'
+            ]);
+
+            Route::get('surveys/delete/{id}', [
+                'as' => 'admin-surveys-delete', 'uses' => 'SurveyController@delete'
+            ]);
+
+            Route::get('coupons/list', [
+                'as' => 'admin-coupons-list', 'uses' => 'CouponController@showList'
+            ]);
+
+            Route::get('coupons/create', [
+                'as' => 'admin-coupons-create', 'uses' => 'CouponController@create'
+            ]);
+
+            Route::get('coupons/update/{id}', [
+                'as' => 'admin-coupons-update', 'uses' => 'CouponController@update'
+            ]);
+
+            Route::post('coupons/update/{id?}', [
+                'as' => 'admin-coupons-post-update', 'uses' => 'CouponController@postUpdate'
+            ]);
+
+            Route::get('coupons/delete/{id}', [
+                'as' => 'admin-coupons-delete', 'uses' => 'CouponController@delete'
+            ]);
+
             Route::get('categories/list', [
                 'as' => 'admin-categories-list', 'uses' => 'CategoryController@showList'
             ]);
@@ -184,6 +244,17 @@ Route::group(['middleware' => ['web']], function () {
                 'as' => 'admin-answers-list', 'uses' => 'AnswerController@showList'
             ]);
 
+            Route::get('answers/create', [
+                'as' => 'admin-answers-create', 'uses' => 'AnswerController@create'
+            ]);
+
+            Route::post('answers/update/{id?}', [
+                'as' => 'admin-answers-post-update', 'uses' => 'AnswerController@postUpdate'
+            ]);
+
+            Route::get('answers/delete/{id}', [
+                'as' => 'admin-answers-delete', 'uses' => 'AnswerController@delete'
+            ]);
 
         });
     });

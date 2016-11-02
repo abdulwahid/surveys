@@ -32,10 +32,8 @@ class TraitController extends Controller
 
     public function postUpdate(Request $request, $id=null)
     {
-        $inputs = $request->all();
         $this->validate($request, [
             'name' => 'required',
-            'description' => 'required',
             'category' => 'required|exists:categories,id'
         ]);
 
@@ -47,17 +45,17 @@ class TraitController extends Controller
             $actionType = 'created';
         }
 
-        $trait->name = $inputs['name'];
-        $trait->description = $inputs['description'];
-        $trait->category_id = $inputs['category'];
+        $trait->name = $request->get('name');
+        $trait->description = $request->get('description', '');
+        $trait->category_id = $request->get('category');
         $trait->save();
 
-        return redirect()->route('admin-traits-list')->with(['message' => 'Trait ' . $actionType . ' successfully']);
+        return redirect()->back()->with(['message' => 'Trait ' . $actionType . ' successfully']);
     }
 
     public function delete($id) {
         $trait = Traits::findOrFail($id);
         $trait->delete();
-        return redirect()->route('admin-traits-list')->with(['message' => 'Trait Deleted Successfully']);
+        return redirect()->back()->with(['message' => 'Trait Deleted Successfully']);
     }
 }

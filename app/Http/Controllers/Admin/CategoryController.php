@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\SurveyType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,24 +18,22 @@ class CategoryController extends Controller
     }
 
     public function create() {
-        return view('admin.category.create');
+        $surveyTypes = SurveyType::all();
+        return view('admin.category.create', compact('surveyTypes'));
     }
 
     public function update($id) {
         $category = Category::findOrFail($id);
-        return view('admin.category.update', compact('category'));
+        $surveyTypes = SurveyType::all();
+        return view('admin.category.update', compact('category', 'surveyTypes'));
     }
 
     public function postUpdate(Request $request, $id=null) {
 
-
-        $inputs = $request->all();
-
         $this->validate($request, [
+            'survey_type' => 'required|exists:survey_types,id',
             'name' => 'required',
-            'description' => 'required',
             'sort_order' => 'required|numeric'
-
         ]);
 
         if($id) {
@@ -45,9 +44,10 @@ class CategoryController extends Controller
             $actionType = 'created';
         }
 
-        $category->name = $inputs['name'];
-        $category->description = $inputs['description'];
-        $category->sort_order = $inputs['sort_order'];
+        $category->survey_type_id = $request->get('survey_type');
+        $category->name = $request->get('name');
+        $category->description = $request->get('description', '');
+        $category->sort_order = $request->get('sort_order');
         $category->save();
 
         return redirect()->route('admin-categories-list')->with(['message' => 'Category ' . $actionType . ' successfully']);

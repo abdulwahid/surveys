@@ -2,7 +2,12 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Departments</h1>
+            <div class="col-lg-6">
+                <h1 class="page-header">Departments</h1>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-primary pull-right page-header" role="button" href="{{ route('admin-departments-create') }}">Add New Department</a>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -31,6 +36,7 @@
                                 <td>{{$row->city->name}}</td>
                                 <td>
                                     <a href="{{ route('admin-departments-update', $row->id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    &nbsp;|&nbsp;
                                     <a onclick="confirm('Are you sure you want to delete?');" href="{{ route('admin-departments-delete', $row->id) }}"><span class="glyphicon glyphicon-trash"></span></a>
                                 </td>
                             </tr>

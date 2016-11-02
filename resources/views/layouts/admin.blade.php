@@ -72,42 +72,32 @@
                         <a href="{{ route('admin-surveys-taken') }}"><i class="fa fa-list-ul"></i> Surveys Taken</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin-categories-list') }}"><i class="fa fa-list-ul"></i> Categories</a>
+                        <a href="{{ route('admin-survey-types-list') }}"><i class="fa fa-list-ul"></i> Survey Types</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin-categories-create') }}"><i class="fa fa-edit"></i> Create New Category</a>
+                        <a href="{{ route('admin-surveys-list') }}"><i class="fa fa-list-ul"></i> Surveys</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-coupons-list') }}"><i class="fa fa-list-ul"></i> Coupons</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin-categories-list') }}"><i class="fa fa-list-ul"></i> Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('admin-companies-list') }}"><i class="fa fa-list-ul"></i> Companies</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin-companies-create') }}"><i class="fa fa-edit"></i> Create New Company</a>
-                    </li>
-                    <li>
                         <a href="{{ route('admin-departments-list') }}"><i class="fa fa-list-ul"></i> Departments</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin-departments-create') }}"><i class="fa fa-edit"></i> Create New Department</a>
                     </li>
                     <li>
                         <a href="{{ route('admin-roles-list') }}"><i class="fa fa-list-ul"></i> Roles</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin-roles-create') }}"><i class="fa fa-edit"></i> Create New Role</a>
-                    </li>
-                    <li>
                         <a href="{{ route('admin-traits-list') }}"><i class="fa fa-list-ul"></i> Traits</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin-traits-create') }}"><i class="fa fa-edit"></i> Create New Trait</a>
                     </li>
                     <li>
                         <a href="{{ route('admin-questions-list') }}"><i class="fa fa-list-ul"></i> Question</a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin-questions-create') }}"><i class="fa fa-edit"></i> Create New Question</a>
-                    </li>
-
                 </ul>
             </div>
         </div>

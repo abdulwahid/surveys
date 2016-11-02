@@ -37,11 +37,8 @@ class DepartmentController extends Controller
 
     public function postUpdate(Request $request, $id=null)
     {
-        $inputs = $request->all();
-
         $this->validate($request, [
             'name' => 'required',
-            'description' => 'required',
             'company' => 'required|exists:companies,id',
             'country' => 'required|exists:countries,id',
             'city' => 'required|exists:cities,id'
@@ -55,19 +52,19 @@ class DepartmentController extends Controller
             $actionType = 'created';
         }
 
-        $department->name = $inputs['name'];
-        $department->description = $inputs['description'];
-        $department->company_id = $inputs['company'];
-        $department->country_id = $inputs['country'];
-        $department->city_id = $inputs['city'];
+        $department->name = $request->input('name');
+        $department->description = $request->input('description', '');
+        $department->company_id = $request->input('company');
+        $department->country_id = $request->input('country');
+        $department->city_id = $request->input('city');
         $department->save();
 
-        return redirect()->route('admin-departments-list')->with(['message' => 'Department ' . $actionType . ' successfully']);
+        return redirect()->back()->with(['message' => 'Department ' . $actionType . ' successfully']);
     }
 
     public function delete($id) {
         $department = Department::findOrFail($id);
         $department->delete();
-        return redirect()->route('admin-departments-list')->with(['message' => 'Department Deleted Successfully']);
+        return redirect()->back()->with(['message' => 'Department deleted successfully']);
     }
 }

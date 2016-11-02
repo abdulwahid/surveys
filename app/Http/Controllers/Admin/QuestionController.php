@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Question;
+use App\Traits;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,7 +28,8 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
         $categories = Category::all();
-        return view('admin.question.update', compact('question', 'categories'));
+        $traits = Traits::all();
+        return view('admin.question.update', compact('question', 'categories', 'traits'));
     }
 
     public function postUpdate(Request $request, $id=null)

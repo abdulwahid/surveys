@@ -34,11 +34,8 @@ class CompanyController extends Controller
 
     public function postUpdate(Request $request, $id=null)
     {
-        $inputs = $request->all();
-
         $this->validate($request, [
             'name' => 'required',
-            'description' => 'required',
             'country' => 'required|exists:countries,id',
             'city' => 'required|exists:cities,id'
         ]);
@@ -51,10 +48,10 @@ class CompanyController extends Controller
             $actionType = 'created';
         }
 
-        $company->name = $inputs['name'];
-        $company->description = $inputs['description'];
-        $company->country_id = $inputs['country'];
-        $company->city_id = $inputs['city'];
+        $company->name = $request->get('name');
+        $company->description = $request->get('description', '');
+        $company->country_id = $request->get('country');
+        $company->city_id = $request->get('city');
         $company->save();
 
         return redirect()->route('admin-companies-list')->with(['message' => 'Company ' . $actionType . ' successfully']);
