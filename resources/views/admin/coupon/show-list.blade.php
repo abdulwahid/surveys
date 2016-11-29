@@ -58,7 +58,7 @@
                                                             </thead>
                                                             <tbody>
 
-                                                                @foreach($row->surveys as $surveys)
+                                                                @foreach($row->surveys as $survey)
                                                                     <tr>
                                                                         <td>{{ $survey->name }}</td>
                                                                         <td title="{{ $survey->description }}">{{str_limit($survey->description, 100)}}</td>

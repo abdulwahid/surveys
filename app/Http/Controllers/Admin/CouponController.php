@@ -38,7 +38,7 @@ class CouponController extends Controller
     public function postUpdate(Request $request, $id=null)
     {
         $this->validate($request, [
-            'coupon' => 'required',
+            'coupon' => 'required|unique:coupons,coupon',
             'company' => 'required|exists:companies,id',
             'department' => 'required|exists:departments,id',
             'role' => 'required|exists:roles,id'
