@@ -18,7 +18,7 @@
                         <form role="form" action="{{ route('admin-categories-post-update') }}" method="post">
 
                             <div class="form-group {{ ($errors && $errors->has('survey_type')) ? 'has-error' : '' }}">
-                                <label>Country</label>
+                                <label>Survey Type</label>
                                 <select name="survey_type" class="country form-control">
                                     <option value="">Select Survey Type</option>
                                     @foreach($surveyTypes as $surveyType)
