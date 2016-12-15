@@ -37,20 +37,28 @@ class CouponController extends Controller
 
     public function postUpdate(Request $request, $id=null)
     {
-        $this->validate($request, [
+
+        $validations = [
             'coupon' => 'required|unique:coupons,coupon',
             'company' => 'required|exists:companies,id',
             'department' => 'required|exists:departments,id',
             'role' => 'required|exists:roles,id'
-        ]);
+        ];
 
         if($id) {
             $coupon = Coupon::findOrFail($id);
             $actionType = 'updated';
+
+            if($coupon->coupon == $request->get('coupon')) {
+                $validations['coupon'] = 'required';
+            }
+
         } else {
             $coupon = New Coupon;
             $actionType = 'created';
         }
+
+        $this->validate($request, $validations);
 
         $coupon->coupon = $request->get('coupon');
         $coupon->company_id = $request->get('company');
