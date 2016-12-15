@@ -29,9 +29,7 @@ class SurveyController extends Controller
     {
         $coupon = $request->input('coupon', null);
         if($coupon) {
-            $couponData = Coupon::where('coupon', '=', $coupon)->first();
-
-            $couponData = Coupon::with(['role', 'surveys' => function ($query) {
+            $surveyData = Coupon::with(['role', 'surveys' => function ($query) {
                 $query->with(['questions' => function ($query) {
                     $query->orderBy('sort_order')
                         ->with(['category', 'answers' => function ($query) {
@@ -43,14 +41,13 @@ class SurveyController extends Controller
             ->where('coupon', '=', $coupon)
             ->first();
     
-            if($couponData) {
-                $surveyData = $couponData->surveys;
-                if($couponData->surveys) {
+            if($surveyData) {
+                 if($surveyData->surveys->first()) {
                     $roles = [];
                     if(!$surveyData->role) {
                         $roles = Role::all()->pluck('name', 'id');
                     }
-                    return view('survey.survey-process')->with(['surveyData' => $couponData->surveys, 'roles' => $roles]);
+                    return view('survey.survey-process')->with(['surveyData' => $surveyData, 'roles' => $roles]);
                 } else {
                     return redirect('/')->withInput()->with('error_message', 'No survey found for provided coupon.');
                 }
