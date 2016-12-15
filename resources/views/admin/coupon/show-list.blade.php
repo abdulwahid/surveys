@@ -52,7 +52,7 @@
                                                         @if($row->surveys->count())
                                                             <thead>
                                                             <tr>
-                                                                <th>Name</th>
+                                                                <th>Title</th>
                                                                 <th>Description</th>
                                                             </tr>
                                                             </thead>
