@@ -45,7 +45,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="myModalLabel">Companies</h4>
+                                                    <h4 class="modal-title" id="myModalLabel">Surveys</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <table class="table table-striped table-bordered table-hover">
@@ -60,7 +60,7 @@
 
                                                                 @foreach($row->surveys as $survey)
                                                                     <tr>
-                                                                        <td>{{ $survey->name }}</td>
+                                                                        <td>{{ $survey->title }}</td>
                                                                         <td title="{{ $survey->description }}">{{str_limit($survey->description, 100)}}</td>
                                                                     </tr>
                                                                 @endforeach
