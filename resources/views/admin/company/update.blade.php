@@ -25,7 +25,7 @@
 
                             <div class="form-group {{ ($errors && $errors->has('description')) ? 'has-error' : '' }}">
                                 <label>Description</label>
-                                <input name="description" class="form-control" value="{{ (old('description')) ? old('description') : $company->description }}">
+                                <textarea name="description" class="form-control" rows="4">{{ (old('description')) ? old('description') : $company->description }}</textarea>
                                 {!! ($errors && $errors->has('description')) ? '<p class="help-block">'. $errors->first('description') .'</p>' : '' !!}
                             </div>
 
@@ -111,7 +111,7 @@
 
                                                 <div class="form-group">
                                                     <label>Description</label>
-                                                    <input name="description" class="description form-control" value="">
+                                                    <textarea name="description" class="form-control" rows="4"></textarea>
                                                 </div>
 
                                                 <div class="form-group">
