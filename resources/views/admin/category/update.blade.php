@@ -104,7 +104,7 @@
 
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea name="description" class="form-control" rows="6"></textarea>
+                                            <textarea name="description" class="form-control description" rows="6"></textarea>
                                         </div>
 
                                         <input type="hidden" name="category" class="category form-control" value="{{ $category->id }}">
