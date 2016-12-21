@@ -107,7 +107,7 @@
 
                                         <div class="form-group">
                                             <label>Sort Order</label>
-                                            <input name="sort_order" class="sort_order form-control" value="1">
+                                            <input name="answer_sort_order" class="sort_order form-control" value="{{  $maxAnswerOrder + 1 }}">
                                         </div>
                                         <input type="hidden" name="answer_question" class="question form-control" value="{{ $question->id }}">
                                         {{ csrf_field() }}

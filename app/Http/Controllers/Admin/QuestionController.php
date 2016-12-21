@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Answer;
 use App\Category;
 use App\Question;
 use App\Traits;
@@ -21,7 +22,8 @@ class QuestionController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.question.create', compact('categories'));
+        $maxQuestionOrder = Question::orderBy('sort_order', 'desc')->first(['sort_order'])->sort_order;
+        return view('admin.question.create', compact('categories', 'maxQuestionOrder'));
     }
 
     public function update($id)
@@ -29,7 +31,8 @@ class QuestionController extends Controller
         $question = Question::findOrFail($id);
         $categories = Category::all();
         $traits = Traits::all();
-        return view('admin.question.update', compact('question', 'categories', 'traits'));
+        $maxAnswerOrder = Answer::orderBy('sort_order', 'desc')->first(['sort_order'])->sort_order;
+        return view('admin.question.update', compact('question', 'categories', 'traits', 'maxAnswerOrder'));
     }
 
     public function postUpdate(Request $request, $id=null)

@@ -19,7 +19,8 @@ class CategoryController extends Controller
 
     public function create() {
         $surveyTypes = SurveyType::all();
-        return view('admin.category.create', compact('surveyTypes'));
+        $maxCategoryOrder = Category::orderBy('sort_order', 'desc')->first(['sort_order'])->sort_order;
+        return view('admin.category.create', compact('surveyTypes','maxCategoryOrder'));
     }
 
     public function update($id) {

@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group {{ ($errors && $errors->has('sort_order')) ? 'has-error' : '' }}">
                                 <label>Sort Order</label>
-                                <input name="sort_order" class="form-control" value="{{ (old('sort_order')) ? old('sort_order') : '' }}">
+                                <input name="sort_order" class="form-control" value="{{ (old('sort_order')) ? old('sort_order') : $maxQuestionOrder + 1 }}">
                                 {!! ($errors && $errors->has('sort_order')) ? '<p class="help-block">'. $errors->first('sort_order') .'</p>' : '' !!}
                             </div>
                             {{ csrf_field() }}
