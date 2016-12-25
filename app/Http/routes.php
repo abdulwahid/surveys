@@ -140,6 +140,10 @@ Route::group(['middleware' => ['web']], function () {
                 'as' => 'admin-categories-delete', 'uses' => 'CategoryController@delete'
             ]);
 
+            Route::post('categories/update-sort-order', [
+                'as' => 'admin-categories-update-sort-order', 'uses' => 'CategoryController@updateSortOrder'
+            ]);
+
             Route::get('companies/list', [
                 'as' => 'admin-companies-list', 'uses' => 'CompanyController@showList'
             ]);

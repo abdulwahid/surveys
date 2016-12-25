@@ -34,7 +34,19 @@
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->description}}</td>
                                 <td>{{$row->surveyType->name}}</td>
-                                <td>{{$row->sort_order}}</td>
+                                <td class="category-sort-order" data-category-id="{{$row->id}}">
+                                    <span class="category-sort-order-show">
+                                        <span class="category-sort-order-value">{{$row->sort_order}}</span>
+                                        <a class="edit pl-10 cursor-pointer"><span title="Update Sort Order" class="glyphicon glyphicon-pencil"></span></a>
+                                    </span>
+                                    <span class="category-sort-order-edit" style="display: none;">
+                                        <input class="sort-order-field form-control so-col-field" value="{{$row->sort_order}}">
+                                        <button title="Save Changes" type="button" class="save btn btn-info btn-circle"><i class="fa fa-check"></i>
+                                        <button title="Cancel" type="button" class="cancel btn btn-default btn-circle"><i class="fa fa-times"></i>
+                                        </button>
+                                    </span>
+                                    <span class="category-sort-order-saving" style="display: none;">Saving...</span>
+                                </td>
                                 <td>
                                     <a href="{{ route('admin-categories-update', $row->id) }}"><span class="glyphicon glyphicon-pencil"></span></a>
                                     &nbsp;|&nbsp;

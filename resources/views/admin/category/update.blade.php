@@ -37,7 +37,7 @@
 
                             <div class="form-group {{ ($errors && $errors->has('description')) ? 'has-error' : '' }}">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control" rows="6">{{ (old('description')) ? old('description') : $category->description }}</textarea>
+                                <textarea name="description" class="form-control" id="category-ckeditor" rows="6">{{ (old('description')) ? old('description') : $category->description }}</textarea>
                                 {!! ($errors && $errors->has('description')) ? '<p class="help-block">'. $errors->first('description') .'</p>' : '' !!}
                             </div>
 
@@ -104,7 +104,7 @@
 
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea name="description" class="form-control description" rows="6"></textarea>
+                                            <textarea name="description" class="form-control description" id="trait-ckeditor" rows="6"></textarea>
                                         </div>
 
                                         <input type="hidden" name="category" class="category form-control" value="{{ $category->id }}">

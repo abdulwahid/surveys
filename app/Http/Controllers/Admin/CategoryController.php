@@ -60,4 +60,17 @@ class CategoryController extends Controller
         return redirect()->route('admin-categories-list')->with(['message' => 'Category Deleted Successfully']);
     }
 
+    public function updateSortOrder(Request $request, $id=null) {
+
+        $this->validate($request, [
+            'category_id' => 'required|exists:categories,id',
+            'sort_order' => 'required|numeric'
+        ]);
+
+        Category::where('id', $request->get('category_id'))
+            ->update(['sort_order' => $request->get('sort_order')]);
+
+        return response()->json(['status' => 'success']);
+    }
+
 }

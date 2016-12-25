@@ -11,6 +11,9 @@ $(function() {
 
     $('.dataTables').DataTable({});
 
+    CKEDITOR.replace('category-ckeditor');
+    CKEDITOR.replace('trait-ckeditor');
+
     $('.country').on('change', function () {
         var countrySelect = $(this);
         $.get('/get-cities/'+$(this).val(), function (data) {
@@ -88,14 +91,61 @@ $(function() {
             $('.trait-modal-submit').html('Update');
 
             $('.trait-modal-form .name').val($(this).parents('.trait-tr:first').find('.name').html());
-            $('.trait-modal-form .description').val($(this).parents('.trait-tr:first').find('.description').html());
+            //$('.trait-modal-form .description').val($(this).parents('.trait-tr:first').find('.description').html());
+
+            CKEDITOR.instances['trait-ckeditor'].setData($(this).parents('.trait-tr:first').find('.description').html());
 
         } else {
             $('.trait-modal-heading').html('Create New Trait');
             $('.trait-modal-submit').html('Create');
+            CKEDITOR.instances['trait-ckeditor'].setData('');
         }
 
         $('#trait-form-modal').modal('show');
+    });
+
+    $('.category-sort-order-show .edit').on('click', function() {
+        var parent = $(this).parents('td.category-sort-order:first');
+        parent.find('.category-sort-order-show').hide();
+        parent.find('.category-sort-order-edit').show();
+    });
+
+    $('.category-sort-order-edit .cancel').on('click', function() {
+        var parent = $(this).parents('td.category-sort-order:first');
+        parent.find('.category-sort-order-edit').hide();
+        parent.find('.category-sort-order-show').show();
+        parent.find('.category-sort-order-edit .sort-order-field').val(parent.find('.category-sort-order-value').html());
+    });
+
+    $('.category-sort-order-edit .save').on('click', function() {
+        var parent = $(this).parents('td.category-sort-order:first');
+        var sortOrder = parent.find('.category-sort-order-edit .sort-order-field').val();
+        console.log(sortOrder);
+        if(sortOrder == '') {
+            alert('Please enter some value.');
+        } else if(!$.isNumeric(sortOrder)) {
+            alert('Invalid value. Please enter some numeric value.');
+        } else {
+            var categoryId = parent.data('category-id');
+            parent.find('.category-sort-order-edit').hide();
+            parent.find('.category-sort-order-saving').show();
+
+            $.post(
+                'update-sort-order',
+                {category_id: categoryId, sort_order: sortOrder, _token: $('input[name=_token]').val()},
+                function (response) {
+                    parent.find('.category-sort-order-saving').hide();
+                    if(response.status == 'success') {
+                        parent.find('.category-sort-order-value').html(sortOrder);
+                        parent.find('.category-sort-order-show').show();
+                    } else {
+                        alert(response.message);
+                        parent.find('.category-sort-order-edit').show();
+                    }
+                },
+                'json'
+            );
+        }
     });
 
 

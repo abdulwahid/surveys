@@ -16,6 +16,7 @@
     <link href="{{asset('assets/css/jquery-ui.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/metisMenu.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
@@ -33,8 +34,8 @@
     <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/js/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery.ui.touch-punch.min.js')}}"></script>
+    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('assets/js/admin.js')}}"></script>
-
 
 </head>
 
@@ -114,6 +115,7 @@
         @endif
         @yield('content')
     </div>
+    {{ csrf_field() }}
 </div>
 
 </body>
