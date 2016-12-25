@@ -9,10 +9,19 @@ $(function() {
     //    } ]
     //});
 
-    $('.dataTables').DataTable({});
+    if($('.dataTables').length) {
+        $('.dataTables').DataTable({});
+    }
 
-    CKEDITOR.replace('category-ckeditor');
-    CKEDITOR.replace('trait-ckeditor');
+    if($('#category-ckeditor').length) {
+        CKEDITOR.replace('category-ckeditor');
+    }
+
+    if($('#trait-ckeditor').length) {
+        CKEDITOR.replace('trait-ckeditor');
+    }
+
+
 
     $('.country').on('change', function () {
         var countrySelect = $(this);
