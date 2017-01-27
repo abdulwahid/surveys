@@ -22,7 +22,8 @@ class QuestionController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $maxQuestionOrder = Question::orderBy('sort_order', 'desc')->first(['sort_order'])->sort_order;
+        $maxQuestionOrder = Question::orderBy('sort_order', 'desc')->first(['sort_order']);
+        $maxQuestionOrder = $maxQuestionOrder ? $maxQuestionOrder->sort_order : 0;
         return view('admin.question.create', compact('categories', 'maxQuestionOrder'));
     }
 
@@ -30,8 +31,9 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
         $categories = Category::all();
-        $traits = Traits::all();
-        $maxAnswerOrder = Answer::orderBy('sort_order', 'desc')->first(['sort_order'])->sort_order;
+        $traits = Traits::where('category_id', $question->category_id)->get();
+        $maxAnswerOrder = Answer::orderBy('sort_order', 'desc')->first(['sort_order']);
+        $maxAnswerOrder = $maxAnswerOrder ? $maxAnswerOrder->sort_order : 0;
         return view('admin.question.update', compact('question', 'categories', 'traits', 'maxAnswerOrder'));
     }
 
