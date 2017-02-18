@@ -1,0 +1,10 @@
+.env
+.idea
+vendor
+composer.lock
+/node_modules
+/nbproject/private/
+/public/pdf_files/*
+/public/temp/*
+/public/logs
+/public/storage/*

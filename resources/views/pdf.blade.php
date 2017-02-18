@@ -1,5 +1,8 @@
 <div style="font-family: Arial, Helvetica, sans-serif">
 
+    @foreach($graphImages as $image)
+        <div><img src="{{ asset($image) }}"></div>
+    @endforeach
 @foreach($scores as $categoryId => $traitsList)
 
     <div>

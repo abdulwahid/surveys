@@ -1,18 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Helpers\SurveyHelper;
 use Illuminate\Http\Request;
 
-use App\Category;
 use App\Coupon;
 use App\Question;
 use App\Survey;
-use App\SurveyResponse;
 use App\SurveyScore ;
 use App\SurveysTaken;
 use App\Http\Controllers\Controller;
 use App\SurveyType;
-use App\Traits;
 use DB;
 use Illuminate\Support\Facades\File;
 
@@ -84,7 +82,7 @@ class SurveyController extends Controller
         return view('admin.surveys-taken', ['surveysTaken'=> $surveysTaken]);
     }
 
-    public function generateGraph($surveyTakenId)
+    public function generateGraph(SurveyHelper $surveyHelper, $surveyTakenId)
     {
 
         $selectedScores = SurveyScore::with(['traits'])
@@ -134,31 +132,15 @@ class SurveyController extends Controller
             $i++;
         }
 
+        $graphData = $surveyHelper->setupGraphData($surveyTakenId);
         return view('admin.generate-graph', ['graphData' => $graphData]);
     }
 
-    public function downloadReport($surveyTakenId) {
+    public function downloadReport(SurveyHelper $surveyHelper, $surveyTakenId) {
         $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
-
-        // Create PDF Report if not exists
-        if(!File::exists($pdfFile)) {
-            $surveyData = SurveyResponse::where('surveys_taken_id', $surveyTakenId)->get();
-            $categories = $surveyData->pluck('category_id');
-            $traits = $surveyData->pluck('trait_id');
-
-            $scores = [];
-            $surveyScores = SurveyScore::where('surveys_taken_id', $surveyTakenId)->get();
-            foreach($surveyScores as $surveyScore) {
-                $scores[$surveyScore->category_id][$surveyScore->trait_id] = $surveyScore->score;
-            }
-
-            $categoriesData = Category::select(['id', 'name', 'description'])->whereIn('id', $categories)->get()->keyBy('id');
-            $traitsData = Traits::select(['id', 'name', 'description'])->whereIn('id', $traits)->get()->keyBy('id');
-            $html = view('pdf', ['scores' => $scores, 'categories' => $categoriesData, 'traits' => $traitsData]);
-            fopen($pdfFile, 'w');
-            \PDF::loadHTML($html)->save($pdfFile);
+        if(File::exists($pdfFile)) {
+            $surveyHelper->generatePDF($surveyTakenId);
         }
-
         $headers = ['Content-Type' => 'application/pdf'];
         return response()->download($pdfFile, 'Report-' . $surveyTakenId . '.pdf', $headers);
     }
