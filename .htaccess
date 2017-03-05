@@ -5,6 +5,8 @@
 
     RewriteEngine On
 
+    AddHandler application/x-httpd-php56 .php .php5 .php4 .php3
+
     # Redirect Trailing Slashes...
 	RewriteRule ^(.*)/$ /$1 [L,R=301]
 
