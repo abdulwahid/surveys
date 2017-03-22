@@ -138,7 +138,7 @@ class SurveyController extends Controller
 
     public function downloadReport(SurveyHelper $surveyHelper, $surveyTakenId) {
         $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
-        if(File::exists($pdfFile)) {
+        if(!File::exists($pdfFile)) {
             $surveyHelper->generatePDF($surveyTakenId);
         }
         $headers = ['Content-Type' => 'application/pdf'];
