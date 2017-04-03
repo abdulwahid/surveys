@@ -1,33 +1,65 @@
+<style>
+    .header,
+    .footer {
+        width: 100%;
+        position: fixed;
+        font-size: 11px;
+    }
+    .header {
+        top: 0px;
+    }
+    .footer {
+        bottom: 0px;
+    }
+    .pg-no:before {
+        content: counter(page);
+    }
+    .pg-no{
+        text-align: right;
+    }
+    .footer .conf {
+        font-style: italic;
+        color: red;
+    }
+</style>
 <div style="font-family: Arial, Helvetica, sans-serif">
 
-    @foreach($graphImages as $image)
+    @foreach($averageGraphImages as $image)
         <div><img src="{{ asset($image) }}"></div>
     @endforeach
-@foreach($scores as $categoryId => $traitsList)
-
+@foreach($scores as $categoryId => $traitsScores)
     <div>
         <div style="width:48%; float: left;">
-        <div style="font-weight: bold; font-size: 14px">Category Title: {{ $categories[$categoryId]['name'] }}</div>
-        <div style="font-size: 12px">Category Description:{{ $categories[$categoryId]['description'] }}</div>
+            <div style="font-weight: bold; font-size: 16px">Category: {{ $traitsScores->first()->category->name }}</div>
+            <div style="font-size: 12px">{!! $traitsScores->first()->category->description  !!}</div>
             <br>
-            <br>
-        @foreach($traitsList as $traitId => $score)
+            <?php $scoresHtml = ''; ?>
+            @foreach($traitsScores as $traitsScore)
 
-            <div style="font-weight: bold; font-size: 12px">Trait Title: {{ $traits[$traitId]['name'] }}</div>
-            <div style="font-size: 10px">Trait Description: {{ $traits[$traitId]['description'] }}</div>
+                <div>
+                    <div style="font-weight: bold; font-size: 12px; width: 24%; float: left;">
+                        Trait: {{ $traitsScore->traits->name }}
+                    </div>
+                    <div style="font-size: 11px; width: 74%; float: left;">
+                        {!! $traitsScore->traits->description  !!}
+                    </div>
+                </div>
+                <br>
+                <?php
+                $scoresHtml .= '<div style="font-size: 11px">' . $traitsScore->traits->name . ' : ' . $traitsScore->score. '%</div>';
+                ?>
+            @endforeach
             <br>
-        @endforeach
-
-        <br>
-        <div style="font-weight: bold; font-size: 12px">Scores:</div>
-
-        @foreach($traitsList as $traitId => $score)
-            <div style="font-size: 10px">{{ $traits[$traitId]['name'] . ' : ' . $score. '%' }}</div>
-            <br>
-        @endforeach
+            <div style="font-weight: bold; font-size: 12px">Scores:</div>
+            {!! $scoresHtml !!}
         </div>
+        <div><img src="{{ asset($percentageGraphImages[$categoryId]) }}"></div>
 
-        <br><br><br>
+        <br><br>
+    </div>
+    <div class="footer">
+        <div class="copy-right">&copy; 2016 AccuMatch Profiles Inc. <span class="conf">Confidential</span></div>
+        <div class="pg-no"></div>
     </div>
 
 @endforeach
