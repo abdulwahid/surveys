@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Survey;
 use App\SurveyType;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    public function showList() {
+    public function showList(Request $request) {
 
-        $categories = Category::all();
-        return view('admin.category.show-list', compact('categories'));
+        $surveyId = $request->get('survey_id', false);
+        if($surveyId) {
+            $questionIds = DB::table('question_survey')->where('survey_id', $surveyId)->pluck('question_id');
+            $categories = Category::join('questions', 'questions.category_id', '=', 'categories.id')
+                ->whereIn('questions.id', $questionIds)
+                ->select('categories.*')
+                ->groupBy('categories.id')
+                ->get();
+        } else {
+            $categories = Category::all();
+        }
+
+        $surveys = Survey::get(['id', 'title']);
+        return view('admin.category.show-list', compact('categories', 'surveys','surveyId'));
     }
 
     public function create() {
