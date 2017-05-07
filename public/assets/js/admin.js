@@ -21,7 +21,7 @@ $(function() {
         CKEDITOR.replace('trait-ckeditor');
     }
 
-    $('#category-survey-selector').on('change', function () {
+    $('#list-survey-selector').on('change', function () {
         var surveyId = $(this).val();
         window.location = window.location.pathname + '?survey_id=' + surveyId;
     });

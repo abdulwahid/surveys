@@ -11,7 +11,7 @@
                 <a class="btn btn-primary pull-right page-header" role="button" href="{{ route('admin-categories-create') }}">Add New Category</a>
             </div>
             <div class="col-lg-3">
-                <select id="category-survey-selector" name="survey_id" class="page-header form-control">
+                <select id="list-survey-selector" name="survey_id" class="page-header form-control">
                     <option value="">Select Survey</option>
                     @foreach($surveys as $survey)
                         <option value="{{ $survey->id }}" {{ ($surveyId == $survey->id) ? 'selected' : ''}}>{{ $survey->title }}</option>

@@ -26,6 +26,31 @@
                                 </select>
                                 {!! ($errors && $errors->has('category')) ? '<p class="help-block">'. $errors->first('category') .'</p>' : '' !!}
                             </div>
+                            <div id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#surveys">Surveys Association</a>
+                                        </h4>
+                                    </div>
+                                    <div id="surveys" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @foreach($surveys as $survey)
+                                                <label class="checkbox-inline">
+                                                    <?php
+                                                    $checked = '';
+                                                    if(in_array($survey->id, $questionIds)) {
+                                                        $checked = 'checked="checked"';
+                                                    }
+                                                    ?>
+                                                    <input name="surveys[]" value="{{ $survey->id }}" {{ $checked }} type="checkbox">
+                                                    {{ $survey->title }}
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group {{ ($errors && $errors->has('text')) ? 'has-error' : '' }}">
                                 <label>Text</label>
                                 <input name="text" class="form-control" value="{{ (old('text')) ? old('text') : $question->text }}">
@@ -37,7 +62,6 @@
                                 <input name="sort_order" class="form-control" value="{{ (old('sort_order')) ? old('sort_order') : $question->sort_order }}">
                                 {!! ($errors && $errors->has('sort_order')) ? '<p class="help-block">'. $errors->first('sort_order') .'</p>' : '' !!}
                             </div>
-
 
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -107,7 +131,7 @@
 
                                         <div class="form-group">
                                             <label>Sort Order</label>
-                                            <input name="answer_sort_order" class="sort_order form-control" value="{{  $maxAnswerOrder + 1 }}">
+                                            <input name="answer_sort_order" class="sort_order form-control" value="0">
                                         </div>
                                         <input type="hidden" name="answer_question" class="question form-control" value="{{ $question->id }}">
                                         {{ csrf_field() }}

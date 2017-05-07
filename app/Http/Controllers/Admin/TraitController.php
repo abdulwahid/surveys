@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Survey;
 use App\Traits;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class TraitController extends Controller
 {
-    public function showList()
+    public function showList(Request $request)
     {
-        $traits = Traits::all();
-        return view('admin.trait.show-list', compact('traits'));
+        $surveyId = $request->get('survey_id', false);
+        if($surveyId) {
+            $questionIds = DB::table('question_survey')->where('survey_id', $surveyId)->pluck('question_id');
+            $traits = Traits::join('answers', 'answers.trait_id', '=', 'traits.id')
+                ->whereIn('answers.question_id', $questionIds)
+                ->select('traits.*')
+                ->groupBy('traits.id')
+                ->get();
+        } else {
+            $traits = Traits::all();
+        }
+
+        $surveys = Survey::get(['id', 'title']);
+        return view('admin.trait.show-list', compact('traits', 'surveys','surveyId'));
     }
 
     public function create()
@@ -32,18 +45,19 @@ class TraitController extends Controller
 
     public function postUpdate(Request $request, $id=null)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'category' => 'required|exists:categories,id'
-        ]);
+        $validations = ['category' => 'required|exists:categories,id'];
 
         if($id) {
             $trait = Traits::findOrFail($id);
             $actionType = 'updated';
+            $validations['name'] = 'required';
         } else {
             $trait = New Traits;
             $actionType = 'created';
+            $validations['name'] = 'required|unique:traits';
         }
+
+        $this->validate($request, $validations);
 
         $trait->name = $request->get('name');
         $trait->description = $request->get('description', '');
