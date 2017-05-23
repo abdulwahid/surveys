@@ -10,7 +10,12 @@ $(function() {
     //});
 
     if($('.dataTables').length) {
-        $('.dataTables').DataTable({});
+        $('.dataTables').DataTable(
+            {"columnDefs": [ {
+                "targets": -1,
+                "searchable": false
+            }]}
+        );
     }
 
     if($('#category-ckeditor').length) {
