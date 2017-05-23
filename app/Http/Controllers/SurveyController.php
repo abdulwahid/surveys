@@ -149,7 +149,7 @@ class SurveyController extends Controller
         $pdfFile = $surveyHelper->generatePDF($surveyTakenId);
 
         // send PDF report in EMail
-        Mail::send('emails.survey-report', ['name' => $inputs['user_name']], function ($mail) use ($pdfFile, $inputs) {
+        Mail::send('emails.survey-report', ['name' => 'Admin', 'candidate_name' => $inputs['user_name']], function ($mail) use ($pdfFile, $inputs) {
             $mail->from('surveys@languageofintention.com', 'Surveys');
             $mail->to(env('ADMIN_EMAIL'), 'Surveys')->subject('Survey Report');
             $mail->attach($pdfFile);
