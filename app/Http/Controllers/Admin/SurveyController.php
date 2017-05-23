@@ -89,11 +89,11 @@ class SurveyController extends Controller
     }
 
     public function downloadReport(SurveyHelper $surveyHelper, $surveyTakenId) {
-        $pdfFile = public_path().'/pdf_files/'.$surveyTakenId.'.pdf';
+        $pdfFile = public_path().'/pdf_files/SurveyReport-' . '-' .$surveyTakenId.'.pdf';
 //        if(!File::exists($pdfFile)) {
             $surveyHelper->generatePDF($surveyTakenId);
 //        }
         $headers = ['Content-Type' => 'application/pdf'];
-        return response()->download($pdfFile, 'Report-' . $surveyTakenId . '.pdf', $headers);
+        return response()->download($pdfFile, 'SurveyReport-' . $surveyTakenId . '.pdf', $headers);
     }
 }

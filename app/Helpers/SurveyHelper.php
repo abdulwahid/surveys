@@ -173,7 +173,7 @@ class SurveyHelper
      * @return string
      */
     public function generatePDF($surveyTakenId) {
-        $pdfFile = public_path().'/pdf_files/SurveyReport-'. time() . '-' .$surveyTakenId.'.pdf';
+        $pdfFile = public_path().'/pdf_files/SurveyReport-' . '-' .$surveyTakenId.'.pdf';
         $averageGraphsData = $this->setupAverageGraphData($surveyTakenId);
         $averageGraphImages = $this->createGraphImages($averageGraphsData);
 
