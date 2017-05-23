@@ -145,6 +145,7 @@ class SurveyController extends Controller
             ];
         }
 
+        SurveyScore::insert($surveyScores);
         $pdfFile = $surveyHelper->generatePDF($surveyTakenId);
 
         // send PDF report in EMail

@@ -181,7 +181,7 @@ class SurveyHelper
         $percentageGraphData = $this->setupPercentageGraphsData($surveyScores);
         $percentageGraphImages = $this->createGraphImages($percentageGraphData);
 
-        $html = view('pdf', ['scores' => $surveyScores, 'averageGraphImages' => $averageGraphImages, 'percentageGraphImages' => $percentageGraphImages]);
+        $html = view('pdf', ['scores' => $surveyScores, 'averageGraphImages' => $averageGraphImages, 'percentageGraphImages' => $percentageGraphImages])->render();
         fopen($pdfFile, 'w');
         \PDF::loadHTML($html)->save($pdfFile);
 
