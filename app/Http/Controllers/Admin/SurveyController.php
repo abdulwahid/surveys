@@ -84,7 +84,7 @@ class SurveyController extends Controller
 
     public function generateGraph(SurveyHelper $surveyHelper, $surveyTakenId)
     {
-        $graphData = $surveyHelper->setupGraphData($surveyTakenId);
+        $graphData = $surveyHelper->setupAverageGraphData($surveyTakenId);
         return view('admin.generate-graph', ['graphData' => $graphData]);
     }
 

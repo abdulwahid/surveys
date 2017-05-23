@@ -129,7 +129,7 @@ $(function() {
         });
 
         setTimeout(function(){
-            // window.location.href = '/thank-you';
+            window.location.href = '/thank-you';
         }, 250);
 
     });

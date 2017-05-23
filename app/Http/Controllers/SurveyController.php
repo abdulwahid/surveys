@@ -145,17 +145,14 @@ class SurveyController extends Controller
             ];
         }
 
-        echo '<pre>';
-        print_r($surveyScores);
-        dd(SurveyScore::insert($surveyScores));
         $pdfFile = $surveyHelper->generatePDF($surveyTakenId);
 
         // send PDF report in EMail
-//        Mail::send('emails.survey-report', ['name' => $inputs['user_name']], function ($m) use ($pdfFile, $inputs) {
-//            $m->from('surveys@languageofintention.com', 'Surveys');
-//            $m->to($inputs['user_email'], 'Wahid')->subject('Survey Report!');
-//            $m->attach($pdfFile);
-//        });
+        Mail::send('emails.survey-report', ['name' => $inputs['user_name']], function ($mail) use ($pdfFile, $inputs) {
+            $mail->from('surveys@languageofintention.com', 'Surveys');
+            $mail->to(env('ADMIN_EMAIL'), 'Surveys')->subject('Survey Report');
+            $mail->attach($pdfFile);
+        });
 
     }
 }
