@@ -119,12 +119,12 @@ $(function() {
             url: '/save-survey-response',
             type: 'post',
             data: {
+                _token: $('input[name="_token"]').val(),
                 coupon_id: couponId,
                 user_name: userName,
                 user_email: userEmail,
                 role: role,
-                responses: responses,
-                _token: $('input[name="_token"]').val()
+                responses: responses
             }
         });
 
