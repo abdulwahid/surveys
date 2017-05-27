@@ -264,4 +264,8 @@ Route::group(['middleware' => ['web']], function () {
         $cities = \App\City::where('country_id', $countryId)->get();
         return response()->json($cities);
     });
+
+    Route::get('phpinfo', function () {
+        echo phpinfo();
+    });
 });
