@@ -265,7 +265,4 @@ Route::group(['middleware' => ['web']], function () {
         return response()->json($cities);
     });
 
-    Route::get('phpinfo', function () {
-        echo phpinfo();
-    });
 });
