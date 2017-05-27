@@ -66,12 +66,6 @@ class SurveyController extends Controller
         //@todo optimize this function
 
         $inputs = $request->input();
-
-        echo '<pre>';
-        print_r($inputs);
-        die;
-
-
         $surveyTaken = new SurveysTaken();
         $surveyTaken->coupon_id = $inputs['coupon_id'];
         $surveyTaken->user_name = $inputs['user_name'];
