@@ -11,7 +11,6 @@ $(function() {
 
     // This variable is used to hold change status of options in survey questions
     changed = false;
-    changed = true;
 
     // Make answers sortable
     $('.answers-container').sortable({
@@ -51,14 +50,14 @@ $(function() {
             }
         }
 
-        if($(this).parents('.panel:first').hasClass('question-container') && !changed) {
-            $('#confirm-next').modal('show');
-            changed = true;
-            next = false;
-        }
+        // if($(this).parents('.panel:first').hasClass('question-container') && !changed) {
+        //     $('#confirm-next').modal('show');
+        //     changed = true;
+        //     next = false;
+        // }
 
 
-        if (next) {
+        // if (next) {
             var parent = $(this).closest('.panel');
             if (parent.find('.answers-container').length) {
                 parent.find('.answers-container').sortable('disable');
@@ -69,7 +68,7 @@ $(function() {
                 next.show("slide", {direction: "right"});
                 changed = false;
             });
-        }
+        // }
 
     });
 
