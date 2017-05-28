@@ -129,8 +129,8 @@ $(function() {
         });
 
         setTimeout(function() {
-            // window.location.href = '/thank-you';
-        }, 250);
+            window.location.href = '/thank-you';
+        }, 1000);
 
     });
 
