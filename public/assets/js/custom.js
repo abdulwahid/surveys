@@ -11,6 +11,7 @@ $(function() {
 
     // This variable is used to hold change status of options in survey questions
     changed = false;
+    changed = true;
 
     // Make answers sortable
     $('.answers-container').sortable({
@@ -129,7 +130,7 @@ $(function() {
         });
 
         setTimeout(function() {
-            window.location.href = '/thank-you';
+            // window.location.href = '/thank-you';
         }, 250);
 
     });
