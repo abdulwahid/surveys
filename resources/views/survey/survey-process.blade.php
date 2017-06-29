@@ -100,14 +100,17 @@
                                                 {{ $answer->text }}
                                             </div>
                                             <?php
-                                                $i--;
-                                                if($answer->trait_id){
-                                                    $traitsCount[$answer->trait_id] = $answer->trait_id;
-                                                    $traitsQuestionsCount[$answer->trait_id][$question->id] = $question->id;
-                                                }
+                                            $i--;
+                                            if($answer->trait_id){
+                                                $traitsCount[$answer->trait_id] = !empty($traitsCount[$answer->trait_id]) ? $traitsCount[$answer->trait_id]++ : 1;
+                                                $traitsQuestionsCount[$answer->trait_id][$question->id] = $question->id;
+                                            }
                                             ?>
                                         @endforeach
-                                            <input type="hidden" class="traits-count" value="{{  count($traitsCount) }}">
+                                        <input type="hidden" class="traits-count" value="{{  count($traitsCount) }}">
+                                        @foreach($traitsCount as $trait_id => $count)
+                                            <input type="hidden" class="trait-{{ $trait_id }}-occurrence" value="{{  $count }}">
+                                        @endforeach
                                     </div>
                                     <div class="form-group text-center">
                                         @if($questionsCount == $q && $surveysCount == $s)
@@ -144,6 +147,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
+
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->

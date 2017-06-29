@@ -90,10 +90,11 @@ $(function() {
 
         $('.survey-container').find('.question-container').each(function () {
 
-            var questionId = $(this).data('question-id');
-            var categoryId = $(this).data('category-id');
-            var traitsCount = $(this).find('.traits-count:first').val();
-            var answersCount = $(this).find('.answer').length;
+            var parent = $(this);
+            var questionId = parent.data('question-id');
+            var categoryId = parent.data('category-id');
+            var traitsCount = parent.find('.traits-count:first').val();
+            var answersCount = parent.find('.answer').length;
             var answersPosition = answersCount;
 
             $(this).find('.answer').each(function () {
@@ -106,6 +107,7 @@ $(function() {
                 answer['trait_id'] = traitId;
                 answer['answer_position'] = answersPosition;
                 answer['traits_count'] = traitsCount;
+                answer['trait_occurrence'] = parent.find('.trait-' + traitId + '-occurrence:first').val();
                 answer['answers_count'] = answersCount;
                 answer['questions_count'] = $('#traits-' + traitId + '-questions').val();
                 responses[i] = answer;
